@@ -31,11 +31,9 @@ Any type of processing of materials, whether thermal, mechanical or of any other
 
 Works in recent years have been directed towards the estimation of local residual stresses, which was made possible by the development of a technique called Focused Ion Beam - Digital Image Correlation (FIB-DIC). This method allows to measure the amplitude of residual stress inside a volume of material milled by means of a gallium ion[@korsunsky_focused_2009].
 
-Latest developments of FIB-DIC have led to the possibility to follow the variation of residual stress inside the volume milled using an eigenstrain approach [@salvati_generalised_2019]. However, code generated in the context of this work was never published although it was used in another paper [@everaerts_nanoscale_2019].
+Latest developments of FIB-DIC have led to the possibility to follow the variation of residual stress inside the volume milled using an eigenstrain approach [@salvati_generalised_2019,@sebastiani_nano-scale_2020]. However, code generated in the context of this work was never published although it was used in another paper [@everaerts_nanoscale_2019].
 
 # Statement of need
 The application presented here builds on a previous MATLAB tool developed in the context of the iStress project [@senn_digital_2025], while adding the possibility to carry out depth profiling as described by @salvati_generalised_2019.
 
-
-
-
+# References
