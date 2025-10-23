@@ -19,7 +19,7 @@ affiliations:
 - name: Department of Materials Engineering, KU Leuven, Belgium
   index: 1
   ror: 05f950310
-- name: DPIA - Polytechnic Department of Engineering and Architecture, University of Udine, Italy
+- name: Polytechnic Department of Engineering and Architecture, University of Udine, Italy
   index: 2
   ror: 05ht0mh31
 date: 22 October 2025
@@ -32,6 +32,7 @@ Any type of processing of materials, whether thermal, mechanical or of any other
 Works in recent years have been directed towards the estimation of local residual stresses, which was made possible by the development of a technique called Focused Ion Beam - Digital Image Correlation (FIB-DIC). This method allows to measure the amplitude of residual stress inside a volume of material milled by means of a gallium ion.
 
 Latest developments of FIB-DIC have led to the possibility to follow the variation of residual stress inside the volume milled
+
 
 
 
