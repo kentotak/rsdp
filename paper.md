@@ -1,10 +1,10 @@
 ---
-title: 'Polishing of titanium'
+title: 'A MATLAB application for the estimation of residual stress as a function of depth.'
 tags:
 - Matlab
 - materials science
 - residual stress
-- titanium
+- FIB-DIC
 authors:
 - name: Kento Takahashi
   orcid: 0009-0009-8975-934X
@@ -19,6 +19,7 @@ bibliography: paper.bib
 
 # Summary
 Any type of processing of materials, whether thermal, mechanical or of any other nature, induces stresses that remain trapped until the finished pieces are used in service. Those residual stresses can cause early failure of materials or, on the contrary, reinforce them and increases their lifespan.
+
 
 
 
