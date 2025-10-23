@@ -1,6 +1,4 @@
 ---
-- name: Open Journals PDF Generator
-  uses: openjournals/openjournals-draft-action@v1.0
 title: 'Polishing of titanium'
 tags:
 - Matlab
@@ -21,5 +19,6 @@ bibliography: paper.bib
 
 # Summary
 Any type of processing of materials, whether thermal, mechanical or of any other nature, induces stresses that remain trapped until the finished pieces are used in service. Those residual stresses can cause early failure of materials or, on the contrary, reinforce them and increases their lifespan.
+
 
 
