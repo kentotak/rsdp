@@ -1,0 +1,4 @@
+// This script's goal is to obtain the uncertainty on the normalized depth.
+// The user is asked to input a scale bar and then to fit ellipses to the bottom of the trench.
+// Author: Kento Takahashi
+// Date: 17/01/2025
