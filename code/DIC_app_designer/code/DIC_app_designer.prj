@@ -1,0 +1,88 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="1846031050" file="C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\code\all_apps-kento\DIC_app_designer-kento\code\DIC_app_designer.prj" location="C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\code\all_apps-kento\DIC_app_designer-kento\code" name="DIC_app_designer" target="target.mlapps" target-name="Package App">
+    <param.appname>DIC_app_designer</param.appname>
+    <param.authnamewatermark>Kento Takahashi</param.authnamewatermark>
+    <param.email>kento.takahashi@kuleuven.be</param.email>
+    <param.company>KU Leuven</param.company>
+    <param.icon>${PROJECT_ROOT}\DIC_app_designer_resources\icon_24.png</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}\DIC_app_designer_resources\icon_48.png</file>
+      <file>${PROJECT_ROOT}\DIC_app_designer_resources\icon_24.png</file>
+      <file>${PROJECT_ROOT}\DIC_app_designer_resources\icon_16.png</file>
+    </param.icons>
+    <param.summary>Reworked version of the package Digital Image Correlation and Tracking developed by Melanie Senn and Chris Eberl.</param.summary>
+    <param.description>See Melanie Senn (2024). Digital Image Correlation and Tracking (https://www.mathworks.com/matlabcentral/fileexchange/50994-digital-image-correlation-and-tracking), MATLAB Central File Exchange. Retrieved November 5, 2024.</param.description>
+    <param.screenshot>C:\Users\u0166823\AppData\Local\Temp\tpd112c6ad_e918_44a2_a14f_d6725fccf1de.png</param.screenshot>
+    <param.version>1.5</param.version>
+    <param.products.name>
+      <item>MATLAB</item>
+      <item>Image Processing Toolbox</item>
+      <item>Optimization Toolbox</item>
+      <item>Statistics and Machine Learning Toolbox</item>
+    </param.products.name>
+    <param.products.id>
+      <item>1</item>
+      <item>17</item>
+      <item>6</item>
+      <item>19</item>
+    </param.products.id>
+    <param.products.version>
+      <item>24.2</item>
+      <item>24.2</item>
+      <item>24.2</item>
+      <item>24.2</item>
+    </param.products.version>
+    <param.platforms />
+    <param.output>${PROJECT_ROOT}</param.output>
+    <param.guid>43312df0-6679-47c6-8a7d-4577160fe6cc</param.guid>
+    <unset>
+      <param.platforms />
+      <param.output />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\DIC_App.mlapp</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\corrcoef.dat</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\filenamelist.mat</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\gridx.dat</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\gridxcoarse.dat</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\gridxfine.dat</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\gridy.dat</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\gridycoarse.dat</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\gridyfine.dat</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\resultsimcorrx.txt</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\resultsimcorry.txt</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\validx.dat</file>
+      <file>C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\dataFIB\DoE\V20-t20-P10-v50-d9\30um_pillar\series4\averaged\x\validy.dat</file>
+      <file>C:\Workdir\MyApps\MATLAB\mtex-6.0.0\tools\math_tools\nanmean.m</file>
+    </fileset.depfun>
+    <fileset.resources>
+      <file>${PROJECT_ROOT}</file>
+    </fileset.resources>
+    <fileset.package />
+    <build-deliverables>
+      <file location="C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\code\all_apps-kento\DIC_app_designer-kento" name="code" optional="false">C:\Users\u0166823\OneDrive - KU Leuven\PhD\exp\FIB-DIC\code\all_apps-kento\DIC_app_designer-kento\code</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Workdir\MyApps\MATLAB\R2024b</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
