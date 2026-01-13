@@ -11,20 +11,20 @@ sample
 └───pillar
     └───series1
         ├───raw
-        │   └───x
-        │   └───y*
-        │   └───45*
+        │   └───0
+        │   └───45
+        │   └───90
         ├───processed**
-        │   └───x
-        │   └───y*
-        │   └───45*
+        │   └───0
+        │   └───45
+        │   └───90
         └───results**
             └───depth_profiling**
 ```
 \* Optional directories.  
 \** These directories will be created automatically after relevant functions have been executed or if they already exist.
 
-The 'workfolder' shown below is the directory where all modified files are located, such as the analyzed images and the DIC files. It is generally located in `/sample/pillar/series/processed/x` (or `/y` or `/45`, see [Data selection](#data-selection)).
+The 'workfolder' shown below is the directory where all modified files are located, such as the analyzed images and the DIC files. It is generally located in `/sample/pillar/series/processed/0` (or `/45` or `/90`, see [Data selection](#data-selection)).
 
 <table>
     <tr>
@@ -42,8 +42,16 @@ The direction of the images can also be chosen, depending on if the user made SE
 
 <table>
     <tr>
-    <td style="width:45%"><img src="./images/tab-data_selection.png"></td>
-    <td><img src="./images/parameters-data_selection.png"></td>
+        <td><img src="./images/tabs/tab-data_selection.png"></td>
+    </tr>
+    <tr>
+        <td><img src="./images/data_selection/data_selection-0.png"></td>
+    </tr>
+    <tr>
+        <td><img src="./images/data_selection/data_selection-45.png"></td>
+    </tr>
+    <tr>
+        <td><img src="./images/data_selection/data_selection-90.png"></td>
     </tr>
 </table>
 
@@ -58,8 +66,8 @@ The original DIC application provided a certain amount of filters to apply on th
 
 <table>
     <tr>
-        <td style="width:45%"><img src="./images/tab-image_processing.png"></td>
-        <td><img src="./images/parameters-image_processing.png"></td>
+        <td style="width:45%"><img src="./images/tabs/tab-image_processing.png"></td>
+        <td><img src="./images/image_processing/image_processing_parameters-01.png"></td>
     </tr>
 </table>
 
@@ -74,11 +82,11 @@ Those steps were kept the same here, with less prompts to the user. For example,
 
 <table>
     <tr>
-        <td style="width:45%"><img src="./images/tab-dic.png"></td>
+        <td style="width:45%"><img src="./images/tabs/tab-dic.png"></td>
         <td>
     </tr>
     <tr>
-        <td><img src="./images/parameters-file_list.png"></td>
+        <td><img src="./images/file_list/file_list_parameters-01.png"></td>
         <td><img src="./images/parameters-process_correlations.png"></td>
     </tr>
 </table>
@@ -109,8 +117,12 @@ The user can also adjust parameters for depth profiling:
 
 <table>
     <tr>
-        <td style="width:45%"><img src="./images/tab-dp.png"></td>
-        <td><img src="./images/parameters-dp.png"></td>
+        <td style="width:45%"><img src="./images/tabs/tab-dp.png"></td>
+        <td><img src="./images/dp_parameters/dp_parameters-data_selection-01.png"></td>
+    </tr>
+    <tr>
+        <td><img src="./images/dp_parameters/dp_parameters-data_selection-02.png"></td>
+        <td><img src="./images/dp_parameters/dp_parameters-data_selection-03.png"></td>
     </tr>
 </table>
 
@@ -123,7 +135,7 @@ Stringing allows to plot multiple averaged curves one after the other. The *Succ
 
 <table>
     <tr>
-        <td style="width:45%"><img src="./images/tab-averaging.png"></td>
+        <td style="width:45%"><img src="./images/tabs/tab-averaging.png"></td>
         <td>
             <figure>
                 <img src="./images/parameters-averaging.png">
@@ -143,7 +155,7 @@ Stringing allows to plot multiple averaged curves one after the other. The *Succ
 The user can compare two samples for one pillar diameter, or entirely.
 <table>
     <tr>
-        <td style="width:45%"><img src="./images/tab-compare.png"></td>
+        <td style="width:45%"><img src="./images/tabs/tab-compare.png"></td>
         <td><img src="./images/parameters-comparison.png"></td>
     </tr>
 </table>
