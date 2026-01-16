@@ -89,6 +89,7 @@ The direction of the images can also be chosen, depending on if the user made SE
             Data selection tab
         </figcaption>
     </figure>
+    <br>
     <figure>
         <img src="./images/data_selection/data_selection-0.png">
         <img src="./images/data_selection/data_selection-45.png">
@@ -98,6 +99,7 @@ The direction of the images can also be chosen, depending on if the user made SE
         </figcaption>
     </figure>
 </center>
+<br>
 
 The application will try to find a raw folder with the images. If the folder does not exist, then the user cannot go further.
 
