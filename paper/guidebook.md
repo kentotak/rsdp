@@ -22,7 +22,14 @@ The [FIB-DIC Good practice guide](https://eprintspublications.npl.co.uk/7807/) r
 
 The diagram below represents the three potential scan directions used during image acquisition: 0°, 45° and 90°. 
 
-<img src='./images/pillar_directions_0.png'>
+<center>
+    <figure>
+        <img src='./images/pillar_directions_0.png'>
+        <figcaption>
+            Scan directions
+        </figcaption>
+    </figure>
+</center>
 
 ## File management
 The general structure of files is shown in the following tree:
@@ -55,18 +62,19 @@ The user can either perform their analysis on the images they acquired or create
 | `raw/45` | No | `processed/45` |
 | `raw/90` | No | `processed/90` |
 
-
 The option of rotating images was added in case the user did not change the scan direction during the image acquisition, but still desires a biaxial analysis of stresses.
 
 ### Workfolder
 The 'workfolder' shown below is the directory where all modified files are located, such as the analyzed images and the DIC files. It is generally located in `/sample/pillar/series/processed/0` (or `/45` or `/90`), as described in the section above.
 
-<table>
-    <tr>
-        <td style="width:45%"><img src="./images/workfolder.png"></td>
-        <td></td>
-    </tr>
-</table>
+<center>
+    <figure>
+        <img src="./images/workfolder.png" width=50%>
+        <figcaption>
+            Workfolder
+        </figcaption>
+    </figure>
+</center>
 
 ## Tab by tab description
 ### Data selection
@@ -75,10 +83,20 @@ The data selection tab allows the user to choose the directory where their data 
 The direction of the images can also be chosen, depending on if the user made SEM images of the pillar in the 0°, 45°, and/or 90° scan direction(s).
 
 <center>
-    <img src="./images/tabs/tab-data_selection.png" width=400>
-    <img src="./images/data_selection/data_selection-0.png">
-    <img src="./images/data_selection/data_selection-45.png">
-    <img src="./images/data_selection/data_selection-90.png">
+    <figure>
+        <img src="./images/tabs/tab-data_selection.png" width=50%>
+        <figcaption>
+            Data selection tab
+        </figcaption>
+    </figure>
+    <figure>
+        <img src="./images/data_selection/data_selection-0.png">
+        <img src="./images/data_selection/data_selection-45.png">
+        <img src="./images/data_selection/data_selection-90.png">
+        <figcaption>
+            Data selection
+        </figcaption>
+    </figure>
 </center>
 
 The application will try to find a raw folder with the images. If the folder does not exist, then the user cannot go further.
