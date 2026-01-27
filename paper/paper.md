@@ -27,13 +27,15 @@ bibliography: paper.bib
 ---
 
 # Summary
-Any type of processing of materials, whether thermal, mechanical or of any other nature, induces stresses that remain trapped until the finished pieces are used in service. Those residual stresses can cause early failure of materials or, on the contrary, reinforce them and increase their lifespan.
+Any type of processing of materials, whether thermal, mechanical or of any other nature, induces stresses that remain trapped until the finished pieces are used in service. Those residual stresses can cause early failure of materials or, on the contrary, reinforce them and increase their lifespan [@hauk_structural_1997,@withers_residual_2001,@withers_residual_2001-1].
 
 Works in recent years have been directed towards the estimation of local residual stresses, which was made possible by the development of a technique called Focused Ion Beam - Digital Image Correlation (FIB-DIC). This method allows to measure the amplitude of residual stress inside a volume of material milled by means of a gallium ion[@korsunsky_focused_2009].
 
 Latest developments of FIB-DIC have led to the possibility to follow the variation of residual stress inside the volume milled using an eigenstrain approach [@salvati_generalised_2019,@sebastiani_nano-scale_2020]. However, code generated in the context of this work was never published although it was used in another paper [@everaerts_nanoscale_2019].
 
 # Statement of need
-The application presented here builds on a previous MATLAB tool developed in the context of the iStress project [@senn_digital_2025], while adding the possibility to carry out depth profiling as described by @salvati_generalised_2019.
+The application presented here builds up on a previous MATLAB tool developed in the context of the iStress project [@senn_digital_2025], while integrating new code written by Enrico Salvati [@salvati_generalised_2019].
+
+Moreover, additional functions in the application were added to account for the case where the user wants to analyze multiple points.
 
 # References
