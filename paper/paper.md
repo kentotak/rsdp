@@ -12,6 +12,9 @@ authors:
 - name: Enrico Salvati
   orcid: 0000-0002-2883-0538
   affiliation: 2
+- name: Martin Diehl
+  orcid: 0000-0002-3738-7363
+  affiliation: "1, 3"
 - name: Joris Everaerts
   orcid: 0000-0002-8414-5877
   affiliation: 1
@@ -22,6 +25,9 @@ affiliations:
 - name: Polytechnic Department of Engineering and Architecture, University of Udine, Italy
   index: 2
   ror: 05ht0mh31
+- name: Department of Computer Science, KU Leuven, Belgium
+  index: 3
+  ror: 05f950310
 date: 22 October 2025
 bibliography: paper.bib
 ---
