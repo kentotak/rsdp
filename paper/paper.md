@@ -60,6 +60,22 @@ The first point was achieved by having a tab structure with one step of the proc
 
 The second point was achieved by moving all the user prompts from `DICT` to a parameters window (associated to each tab). This is especially useful for the successive analysis of multiple datasets with the same parameters.
 
+<table>
+  <tr>
+    <td>
+      <figure>
+        <img src="./guidebook-DP_app/images/tabs/tab-dic.png">
+        <figcaption><i>DIC tab</i></figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure>
+        <img src="./guidebook-DP_app/images/file_list/file_list_parameters-01.png">
+        <figcaption><i>File list parameters</i></figcaption>
+    </td>
+  </tr>
+</table>
+
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
 # References
