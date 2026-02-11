@@ -40,18 +40,13 @@ Works in recent years have been directed towards the estimation of local residua
 Latest developments of FIB-DIC have led to the possibility of following the variation of residual stresses inside the volume milled using an eigenstrain approach [@salvati_generalised_2019;@sebastiani_nano-scale_2020]. However, code written in the context of this work was never published although it was used in another paper [@everaerts_nanoscale_2019].
 
 # Statement of need
-`rsdp` builds up on `DICT`, a MATLAB package developed in the context of the iStress project [@senn_digital_2025]. `DICT` outputs a strain file that is then used in the depth profiling code. The intent behind the development of `rsdp` as an application was to streamline this analysis process; this was originally done to optimize the analysis of multiple datasets.
+`rsdp` builds up on `DICT`, a MATLAB package developed in the context of the iStress project [@senn_digital_2025]. `DICT` outputs a strain file that is then used in the depth profiling code, as shown in the images below. The intent behind the development of `rsdp` as an application was to streamline this analysis process; this was originally done to optimize the analysis of multiple datasets.
+
+| Strain      | Stress as a function of depth |
+| :------------: | :-----------: |
+<img src="./images/strain_relief_profile-example.jpg">| ![File list parameters \label{fig:file_list_parameters}](./images/RS_profile-example.jpg)|
 
 Moreover, some changes were made to `DICT`: the package was upgraded from GUIDE to App Designer, and a few bugs were corrected.
-
-<!-- Moreover, additional functions in the application were added to account for the case where the user wants to analyze multiple points. -->
-
-<!-- # State of the field
-As mentioned above, a Matlab application was developped in the frame of the iStress project for the DIC analysis. However, some defaults during my analysis:
-- As I was processing multiple datasets, I found the repetitive clicking and prompts not suited for my use.
-- I wanted to include depth profiling as an option in the software.
-- The original DIC code did not account for a rotation of the markers grid.
-- The original DIC app was written in GUIDE and some elements were rewritten in App designer. -->
 
 # Software design
 The philosophy behind the development of `rsdp` relies on two main points: (1) Present a clear, stepwise analysis process. (2) Limit user prompts.
@@ -60,9 +55,9 @@ The first point was achieved by having a tab structure with one step of the proc
 
 The second point was achieved by moving all the user prompts from `DICT` to a parameters window (associated to each tab). This is especially useful for the successive analysis of multiple datasets with the same parameters (see the images below)
 
-![DIC tab \label{fig:dic_tab}](./images/tabs/tab-dic.png)| ![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-01.png)|
-| :------------: | :-----------: |
 | DIC tab      | File list parameters |
+| :------------: | :-----------: |
+<img src="./images/tabs/tab-dic-02.png" width=80%>| ![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png)|
 
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
