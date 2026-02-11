@@ -58,10 +58,11 @@ The philosophy behind the development of `rsdp` relies on two main points: (1) P
 
 The first point was achieved by having a tab structure with one step of the process allocated to each tab. The steps of the process are: (1) Data selection. (2) Image processing. (3) DIC analysis. (4) Depth profiling. (5) Additional functions.
 
-The second point was achieved by moving all the user prompts from `DICT` to a parameters window (associated to each tab). This is especially useful for the successive analysis of multiple datasets with the same parameters. As an example, see Figure 1 and 2.
+The second point was achieved by moving all the user prompts from `DICT` to a parameters window (associated to each tab). This is especially useful for the successive analysis of multiple datasets with the same parameters (see the images below)
 
-![DIC tab](./images/tabs/tab-dic.png)
-![File list parameters](./images/image_processing/image_processing_parameters-01.png)
+![DIC tab \label{fig:dic_tab}](./images/tabs/tab-dic.png)| ![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-01.png)|
+| :------------: | :-----------: |
+| DIC tab      | File list parameters |
 
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
