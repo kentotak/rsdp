@@ -1,55 +1,47 @@
 % Purpose: Depth profiling code for the non-equibiaxial case. This code is meant to be used in the DP app.
 % Authors: Kento Takahashi (KU Leuven, Belgium) and Enrico Salvati (University of Udine, Italy)
-% Date of last change: 25/11/2025
+% Date of last change: 12/01/2026
 
-function DP_non_equibiaxial(saving,path,xStrainFile,yStrainFile,imagesDirection,pillarDiameter,stepSize,pillarRedFactor,xData,xLowBound,xHighBound, ...
-    yLowBound,yHighBound,pointsSpan,polynomialDegree,elasticModulus,poissonRatio)
+function DP_non_equibiaxial(saving,path,zeroStrainFile,ninetyStrainFile,pillarDiameter,stepSize,pillarRedFactor,xAxisData,xAxisLowLimit,xAxisHighLimit, ...
+    yAxisLowLimit,yAxisHighLimit,pointsSpan,polynomialDegree,elasticModulus,poissonRatio)
     %% Saving files
     if saving == true
-        resultsDir = fullfile(path, 'results', 'depth_profiling', imagesDirection);
+        resultsDir = fullfile(path, 'results', 'depth_profiling', 'biaxial');
         
         % Checking if it exists
         if ~exist(resultsDir, 'dir')
             mkdir(resultsDir)
         end
     end
-
-    % % Converting depending on x axis
-    % if strcmp(xData,'Depth')
-    %     xLowBound = xLowBound/pillarDiameter;
-    %     xHighBound = xHighBound/pillarDiameter;
-    % end
     
     % Load strains
-    if isfile(xStrainFile)
-        xStrainMatrix = load(xStrainFile);
+    if isfile(zeroStrainFile)
+        zeroStrainMatrix = load(zeroStrainFile);
     else
-        msgbox(sprintf('Strain file %s not found.',xStrainFile))
+        msgbox(sprintf('Strain file %s not found.',zeroStrainFile))
         return
     end
 
-    if isfile(yStrainFile)
-        yStrainMatrix = load(yStrainFile);
+    if isfile(ninetyStrainFile)
+        ninetyStrainMatrix = load(ninetyStrainFile);
     else
-        msgbox(sprintf('Strain file %s not found.',yStrainFile))
+        msgbox(sprintf('Strain file %s not found.',ninetyStrainFile))
         return
     end
 
     % Create uncertainty matrices
-    xUncertaintyNormalizedDepth = 1e-6*ones(size(xStrainMatrix));
-    xErrorStrain = 1e-6*ones(size(xStrainMatrix));
+    zeroUncertaintyNormalizedDepth = 1e-6*ones(size(zeroStrainMatrix));
+    zeroErrorStrain = 1e-6*ones(size(zeroStrainMatrix));
 
-    yUncertaintyNormalizedDepth = 1e-6*ones(size(yStrainMatrix));
-    yErrorStrain = 1e-6*ones(size(yStrainMatrix));
+    ninetyUncertaintyNormalizedDepth = 1e-6*ones(size(ninetyStrainMatrix));
+    ninetyErrorStrain = 1e-6*ones(size(ninetyStrainMatrix));
     
     % Variables definition
-    depth = (xStrainMatrix(:, 1)-1)*stepSize; % The first column of the strain file is the image number
-    xStrainRelief = xStrainMatrix(:, 2); % The second column of the strain file is the strain relief
-    yStrainRelief = yStrainMatrix(:, 2);
+    depth = (zeroStrainMatrix(:, 1)-1)*stepSize; % The first column of the strain file is the image number
+    zeroStrainRelief = zeroStrainMatrix(:, 2); % The second column of the strain file is the strain relief
+    ninetyStrainRelief = ninetyStrainMatrix(:, 2);
 
-    normalizedDepth = depth./pillarDiameter;
-    
-    
+    normalizedDepth = depth./pillarDiameter;    
     
     %% Influence factors
     if pillarRedFactor == 1
@@ -68,13 +60,13 @@ function DP_non_equibiaxial(saving,path,xStrainFile,yStrainFile,imagesDirection,
     
     %% Calculation of parameters (eigenstrain, h/D differences, ...)
     % Data regularisation
-    xStrainRelief = xStrainRelief';
-    yStrainRelief = yStrainRelief';
+    zeroStrainRelief = zeroStrainRelief';
+    ninetyStrainRelief = ninetyStrainRelief';
     normalizedDepth = normalizedDepth';
     
     % Calculation of eps
-    xSRCurveSmoothed = smooth(normalizedDepth,xStrainRelief,pointsSpan,'sgolay',polynomialDegree); % This smoothes every 6 (pointsSpan) values with a 3rd degree (polynomialDegree) polynomial
-    ySRCurveSmoothed = smooth(normalizedDepth,yStrainRelief,pointsSpan,'sgolay',polynomialDegree);
+    zeroSRCurveSmoothed = smooth(normalizedDepth,zeroStrainRelief,pointsSpan,'sgolay',polynomialDegree); % This smoothes every 6 (pointsSpan) values with a 3rd degree (polynomialDegree) polynomial
+    ninetySRCurveSmoothed = smooth(normalizedDepth,ninetyStrainRelief,pointsSpan,'sgolay',polynomialDegree);
 
     % h/D shift and delta calculation
     midNormalizedDepth = nan(1,length(normalizedDepth)-1);
@@ -86,42 +78,42 @@ function DP_non_equibiaxial(saving,path,xStrainFile,yStrainFile,imagesDirection,
     end
 
     % Delta eps calculation
-    deltaxSRCurveSmoothed = nan(1,length(xSRCurveSmoothed)-1);
-    deltaySRCurveSmoothed = nan(1,length(ySRCurveSmoothed)-1);
+    deltaZeroSRCurveSmoothed = nan(1,length(zeroSRCurveSmoothed)-1);
+    deltaNinetySRCurveSmoothed = nan(1,length(ninetySRCurveSmoothed)-1);
     
-    for i = 1:(length(xSRCurveSmoothed)-1)
-        deltaxSRCurveSmoothed(i) = xSRCurveSmoothed(i+1) - xSRCurveSmoothed(i);
+    for i = 1:(length(zeroSRCurveSmoothed)-1)
+        deltaZeroSRCurveSmoothed(i) = zeroSRCurveSmoothed(i+1) - zeroSRCurveSmoothed(i);
     end
 
-    for i = 1:(length(ySRCurveSmoothed)-1)
-        deltaySRCurveSmoothed(i) = ySRCurveSmoothed(i+1) - ySRCurveSmoothed(i);
+    for i = 1:(length(ninetySRCurveSmoothed)-1)
+        deltaNinetySRCurveSmoothed(i) = ninetySRCurveSmoothed(i+1) - ninetySRCurveSmoothed(i);
     end
     
     % Replacing 0 with NaN
     for i = 1:(length(normalizedDepth)-1)
         if deltaNormalizedDepth(i) == 0
             deltaNormalizedDepth(i) = nan;
-            deltaxSRCurveSmoothed(i) = nan;
-            deltaySRCurveSmoothed(i) = nan;
+            deltaZeroSRCurveSmoothed(i) = nan;
+            deltaNinetySRCurveSmoothed(i) = nan;
         end
         if midNormalizedDepth(i) == 0
             midNormalizedDepth(i) = nan;
-            deltaxSRCurveSmoothed(i) = nan;
-            deltaySRCurveSmoothed(i) = nan;
+            deltaZeroSRCurveSmoothed(i) = nan;
+            deltaNinetySRCurveSmoothed(i) = nan;
         end
     end
     
     
     %% G(h/D) and F(h/D) influence functions
-    xEps = nan(size(xStrainRelief)-1);
-    yEps = nan(size(yStrainRelief)-1);
+    zeroEps = nan(size(zeroStrainRelief)-1);
+    ninetyEps = nan(size(ninetyStrainRelief)-1);
     
-    xGtemp = deltaxSRCurveSmoothed./deltaNormalizedDepth;
-    yGtemp = deltaySRCurveSmoothed./deltaNormalizedDepth;
+    zeroGtemp = deltaZeroSRCurveSmoothed./deltaNormalizedDepth;
+    ninetyGtemp = deltaNinetySRCurveSmoothed./deltaNormalizedDepth;
     Ftemp = exp(-alpha*midNormalizedDepth).*(alpha-beta+(alpha*beta+2*gamma)*midNormalizedDepth-alpha*gamma*midNormalizedDepth.^2);
     
-    xEps(1:length(deltaxSRCurveSmoothed)) = -xGtemp./Ftemp; % eps is the residual elastic strain, which is the opposite of the eigenstrain
-    yEps(1:length(deltaySRCurveSmoothed)) = -yGtemp./Ftemp;
+    zeroEps(1:length(deltaZeroSRCurveSmoothed)) = -zeroGtemp./Ftemp; % eps is the residual elastic strain, which is the opposite of the eigenstrain
+    ninetyEps(1:length(deltaNinetySRCurveSmoothed)) = -ninetyGtemp./Ftemp;
     depthShift = midNormalizedDepth*pillarDiameter;
     
 
@@ -129,52 +121,94 @@ function DP_non_equibiaxial(saving,path,xStrainFile,yStrainFile,imagesDirection,
     for i = 1:(length(normalizedDepth)-1)
         reducedNormalizedDepth = [normalizedDepth(i)  normalizedDepth(i+1)];
 
-        reducedxEps = [xSRCurveSmoothed(i)  xSRCurveSmoothed(i+1)];
-        reducedxErrorStrain = [xErrorStrain(i)  xErrorStrain(i+1)];
-        reducedxErrorNormalizedDepth = [xUncertaintyNormalizedDepth(i)  xUncertaintyNormalizedDepth(i+1)];
+        reducedZeroEps = [zeroSRCurveSmoothed(i)  zeroSRCurveSmoothed(i+1)];
+        reducedZeroErrorStrain = [zeroErrorStrain(i)  zeroErrorStrain(i+1)];
+        reducedZeroErrorNormalizedDepth = [zeroUncertaintyNormalizedDepth(i)  zeroUncertaintyNormalizedDepth(i+1)];
 
-        reducedyEps = [ySRCurveSmoothed(i)  ySRCurveSmoothed(i+1)];
-        reducedyErrorStrain = [yErrorStrain(i)  yErrorStrain(i+1)];
-        reducedyErrorNormalizedDepth = [yUncertaintyNormalizedDepth(i)  yUncertaintyNormalizedDepth(i+1)];
+        reducedNinetyEps = [ninetySRCurveSmoothed(i)  ninetySRCurveSmoothed(i+1)];
+        reducedNinetyErrorStrain = [ninetyErrorStrain(i)  ninetyErrorStrain(i+1)];
+        reducedNinetyErrorNormalizedDepth = [ninetyUncertaintyNormalizedDepth(i)  ninetyUncertaintyNormalizedDepth(i+1)];
 
         % Linear fit between 2 points with errors on normalized depth and strain
-        % x data
-        [~, xSp, xLower, xUpper, xXplot] = linfitxy(reducedNormalizedDepth, reducedxEps, reducedxErrorNormalizedDepth,reducedxErrorStrain, ...
+        % 0° data
+        [~, zeroSp, zeroLower, zeroUpper, zeroXplot] = linfitxy(reducedNormalizedDepth, reducedZeroEps, reducedZeroErrorNormalizedDepth,reducedZeroErrorStrain, ...
             'Verbosity', 0);
 
-        xLowerBandc(i,:) = xLower;
-        xUpperBandc(i,:) = xUpper;
-        xDeltaBand(i) = xSp(1); % sp is the uncertainty on ydata, therefore sp(1) is the uncertainty on the slope.
+        zeroLowerBandc(i,:) = zeroLower;
+        zeroUpperBandc(i,:) = zeroUpper;
+        zeroDeltaBand(i) = zeroSp(1); % sp is the uncertainty on ydata, therefore sp(1) is the uncertainty on the slope.
 
-        xDeltaStrain(i) = xDeltaBand(i)./abs(Ftemp(i)); % Not sure where this formula comes from
-        xUpperStrain(i) = xEps(i) + xDeltaStrain(i);
-        xLowerStrain(i) = xEps(i) - xDeltaStrain(i);
-        xXError(i,:) = xXplot; % This is chi2 (goodness-of-fit)
+        zeroDeltaStrain(i) = zeroDeltaBand(i)./abs(Ftemp(i)); % Not sure where this formula comes from
+        zeroUpperStrain(i) = zeroEps(i) + zeroDeltaStrain(i);
+        zeroLowerStrain(i) = zeroEps(i) - zeroDeltaStrain(i);
+        zeroXError(i,:) = zeroXplot; % This is chi2 (goodness-of-fit)
 
 
-        % y data
-        [~, ySp, yLower, yUpper, yXplot] = linfitxy(reducedNormalizedDepth, reducedyEps, reducedyErrorNormalizedDepth,reducedyErrorStrain, ...
+        % 90° data
+        [~, ninetySp, ninetyLower, ninetyUpper, ninetyXplot] = linfitxy(reducedNormalizedDepth, reducedNinetyEps, reducedNinetyErrorNormalizedDepth,reducedNinetyErrorStrain, ...
             'Verbosity', 0);
 
-        yLowerBandc(i,:) = yLower;
-        yUpperBandc(i,:) = yUpper;
-        yDeltaBand(i) = ySp(1); % sp is the uncertainty on ydata, therefore sp(1) is the uncertainty on the slope.
+        ninetyLowerBandc(i,:) = ninetyLower;
+        ninetyUpperBandc(i,:) = ninetyUpper;
+        ninetyDeltaBand(i) = ninetySp(1); % sp is the uncertainty on ydata, therefore sp(1) is the uncertainty on the slope.
 
-        yDeltaStrain(i) = yDeltaBand(i)./abs(Ftemp(i)); % Not sure where this formula comes from
-        yUpperStrain(i) = yEps(i) + yDeltaStrain(i);
-        yLowerStrain(i) = yEps(i) - yDeltaStrain(i);
-        yXError(i,:) = yXplot; % This is chi2 (goodness-of-fit)
+        ninetyDeltaStrain(i) = ninetyDeltaBand(i)./abs(Ftemp(i)); % Not sure where this formula comes from
+        ninetyUpperStrain(i) = ninetyEps(i) + ninetyDeltaStrain(i);
+        ninetyLowerStrain(i) = ninetyEps(i) - ninetyDeltaStrain(i);
+        ninetyXError(i,:) = ninetyXplot; % This is chi2 (goodness-of-fit)
     end
     
     % close % linfitxy opens a figure by default
     
     
     %% Plotting the smoothed strain relief
-    % x data
+    % 0° data
     figure
-    plot(normalizedDepth, xSRCurveSmoothed, 'r', 'LineWidth', 2)
-    hold on
-    plot(normalizedDepth, xStrainRelief, 'b.-', 'LineWidth', 2)
+    if strcmp(xAxisData,"Depth")
+        plot(depth, zeroSRCurveSmoothed, 'r', 'LineWidth', 2)
+        hold on
+        plot(depth, zeroStrainRelief, 'b.-', 'LineWidth', 2)
+    else
+        plot(normalizedDepth, zeroSRCurveSmoothed, 'r', 'LineWidth', 2)
+        hold on
+        plot(normalizedDepth, zeroStrainRelief, 'b.-', 'LineWidth', 2)
+    end
+
+    % for i = 1:(length(normalizedDepth)-1)
+    %     plot (squeeze(x_error(i,:)), squeeze(lower_bandc(i,:)), 'k', 'LineWidth', 1, 'LineStyle', ':');
+    %     hold on
+    %     plot (squeeze(x_error(i,:)), squeeze(upper_bandc(i,:)), 'k', 'LineWidth', 1, 'LineStyle', ':');
+    % end
+    
+    legend('Smoothed Data','Original Data','Location','best')
+    title('Strain relief profile in 0° direction')
+    box off
+    if strcmp(xAxisData,"Depth")
+        xlabel('Depth [µm]')
+    else
+        xlabel('Normalized depth (h/D)')
+    end
+    ylabel('Strain Relief')
+    ylim([min(zeroStrainRelief)-5e-4 max(zeroStrainRelief)+5e-4])
+    hold off
+    set(gca,'FontSize',12)
+    set(gca, 'FontName', 'Times New Roman')
+    
+    if saving == true
+        saveas(gcf, fullfile(resultsDir, 'strain_relief_profile-0.jpg'));
+    end
+    
+    % 90° data
+    figure
+    if strcmp(xAxisData,"Depth")
+        plot(depth, ninetySRCurveSmoothed, 'r', 'LineWidth', 2)
+        hold on
+        plot(depth, ninetyStrainRelief, 'b.-', 'LineWidth', 2)
+    else
+        plot(normalizedDepth, ninetySRCurveSmoothed, 'r', 'LineWidth', 2)
+        hold on
+        plot(normalizedDepth, ninetyStrainRelief, 'b.-', 'LineWidth', 2)
+    end
     
     % for i = 1:(length(normalizedDepth)-1)
     %     plot (squeeze(x_error(i,:)), squeeze(lower_bandc(i,:)), 'k', 'LineWidth', 1, 'LineStyle', ':');
@@ -183,51 +217,21 @@ function DP_non_equibiaxial(saving,path,xStrainFile,yStrainFile,imagesDirection,
     % end
     
     legend('Smoothed Data','Original Data','Location','best')
-    title('Strain relief profile in x')
+    title('Strain relief profile in 90° direction')
     box off
-    if strcmp(xData,"Depth")
+    if strcmp(xAxisData,"Depth")
         xlabel('Depth [µm]')
     else
         xlabel('Normalized depth (h/D)')
     end
     ylabel('Strain Relief')
-    ylim([min(xStrainRelief)-5e-4 max(xStrainRelief)+5e-4])
+    ylim([min(ninetyStrainRelief)-5e-4 max(ninetyStrainRelief)+5e-4])
     hold off
     set(gca,'FontSize',12)
     set(gca, 'FontName', 'Times New Roman')
     
     if saving == true
-        saveas(gcf, fullfile(resultsDir, 'strain_relief_profile-x.jpg'));
-    end
-    
-    % y data
-    figure
-    plot(normalizedDepth, ySRCurveSmoothed, 'r', 'LineWidth', 2)
-    hold on
-    plot(normalizedDepth, yStrainRelief, 'b.-', 'LineWidth', 2)
-    
-    % for i = 1:(length(normalizedDepth)-1)
-    %     plot (squeeze(x_error(i,:)), squeeze(lower_bandc(i,:)), 'k', 'LineWidth', 1, 'LineStyle', ':');
-    %     hold on
-    %     plot (squeeze(x_error(i,:)), squeeze(upper_bandc(i,:)), 'k', 'LineWidth', 1, 'LineStyle', ':');
-    % end
-    
-    legend('Smoothed Data','Original Data','Location','best')
-    title('Strain relief profile in y')
-    box off
-    if strcmp(xData,"Depth")
-        xlabel('Depth [µm]')
-    else
-        xlabel('Normalized depth (h/D)')
-    end
-    ylabel('Strain Relief')
-    ylim([min(yStrainRelief)-5e-4 max(yStrainRelief)+5e-4])
-    hold off
-    set(gca,'FontSize',12)
-    set(gca, 'FontName', 'Times New Roman')
-    
-    if saving == true
-        saveas(gcf, fullfile(resultsDir, 'strain_relief_profile-y.jpg'));
+        saveas(gcf, fullfile(resultsDir, 'strain_relief_profile-90.jpg'));
     end
 
 
@@ -235,52 +239,52 @@ function DP_non_equibiaxial(saving,path,xStrainFile,yStrainFile,imagesDirection,
     % (assuming elastic isotropy!)
     % Define limits
     for i = 1:(length(normalizedDepth)-1)
-        if xUpperStrain(i) == 0
-            xUpperStrain(i) = nan;
-            xLowerStrain(i) = nan;
+        if zeroUpperStrain(i) == 0
+            zeroUpperStrain(i) = nan;
+            zeroLowerStrain(i) = nan;
         end
-        if yUpperStrain(i) == 0
-            yUpperStrain(i) = nan;
-            yLowerStrain(i) = nan;
+        if ninetyUpperStrain(i) == 0
+            ninetyUpperStrain(i) = nan;
+            ninetyLowerStrain(i) = nan;
         end
         % Only keeping values if h/D in interval
-        if (midNormalizedDepth(i)<xLowBound)||(midNormalizedDepth(i)>xHighBound)||midNormalizedDepth(i) == 0||depthShift(i) == 0
+        if (midNormalizedDepth(i)<xAxisLowLimit)||(midNormalizedDepth(i)>xAxisHighLimit)||midNormalizedDepth(i) == 0||depthShift(i) == 0
             midNormalizedDepth(i) = nan;
             depthShift(i) = nan;
             
-            xEps(i) = nan;
-            xUpperStrain(i) = nan;
-            xLowerStrain(i) = nan;
+            zeroEps(i) = nan;
+            zeroUpperStrain(i) = nan;
+            zeroLowerStrain(i) = nan;
 
-            yEps(i) = nan;
-            yUpperStrain(i) = nan;
-            yLowerStrain(i) = nan;
+            ninetyEps(i) = nan;
+            ninetyUpperStrain(i) = nan;
+            ninetyLowerStrain(i) = nan;
         end
     end
     
-    x = linspace(0, xHighBound, 500);
+    normalizedDepthLinspace = linspace(0, max(normalizedDepth), 500);
     
     % [midNormalizedDepthWithoutNaN, epsWithoutNaN, xUpperStrainWithoutNaN, xLowerStrainWithoutNaN, yUpperStrainWithoutNaN, yLowerStrainWithoutNaN] = removeNaNColumns( ...
-    %     midNormalizedDepth, xEps, xUpperStrain, xLowerStrain, yUpperStrain, yLowerStrain);
-    [midNormalizedDepthWithoutNaN, xEpsWithoutNaN, yEpsWithoutNaN] = removeNaNColumns(midNormalizedDepth, xEps, yEps);
+    %     midNormalizedDepth, xEps, zeroUpperStrain, xLowerStrain, yUpperStrain, yLowerStrain);
+    [midNormalizedDepthWithoutNaN, zeroEpsWithoutNaN, ninetyEpsWithoutNaN] = removeNaNColumns(midNormalizedDepth, zeroEps, ninetyEps);
     
-    % x data
-    xStrain = interp1(midNormalizedDepthWithoutNaN, xEpsWithoutNaN, x, 'linear');
-    % xUpperStrain = interp1(midNormalizedDepthWithoutNaN, xUpperStrainWithoutNaN, x, 'linear');
-    % xLowerStrain = interp1(midNormalizedDepthWithoutNaN, xLowerStrainWithoutNaN, x, 'linear');
+    % 0° data
+    zeroStrain = interp1(midNormalizedDepthWithoutNaN, zeroEpsWithoutNaN, normalizedDepthLinspace, 'linear');
+    % zeroUpperStrain = interp1(midNormalizedDepthWithoutNaN, xUpperStrainWithoutNaN, normalizedDepthLinspace, 'linear');
+    % xLowerStrain = interp1(midNormalizedDepthWithoutNaN, xLowerStrainWithoutNaN, normalizedDepthLinspace, 'linear');
 
-    % y data
-    yStrain = interp1(midNormalizedDepthWithoutNaN, yEpsWithoutNaN, x, 'linear');
-    % yUpperStrain = interp1(midNormalizedDepthWithoutNaN, yUpperStrainWithoutNaN, x, 'linear');
-    % yLowerStrain = interp1(midNormalizedDepthWithoutNaN, yLowerStrainWithoutNaN, x, 'linear');
+    % 90° data
+    ninetyStrain = interp1(midNormalizedDepthWithoutNaN, ninetyEpsWithoutNaN, normalizedDepthLinspace, 'linear');
+    % yUpperStrain = interp1(midNormalizedDepthWithoutNaN, yUpperStrainWithoutNaN, normalizedDepthLinspace, 'linear');
+    % yLowerStrain = interp1(midNormalizedDepthWithoutNaN, yLowerStrainWithoutNaN, normalizedDepthLinspace, 'linear');
     
     % % Stress computation
-    xStress = (elasticModulus*1000)./(1-poissonRatio^2)*(xStrain + poissonRatio*yStrain);
-    % xUpperStress = (elasticModulus*1000.*xUpperStrain)./(1-poissonRatio);
+    zeroStress = (elasticModulus*1000)./(1-poissonRatio^2)*(zeroStrain + poissonRatio*ninetyStrain);
+    % xUpperStress = (elasticModulus*1000.*zeroUpperStrain)./(1-poissonRatio);
     % xLowerStress = (elasticModulus*1000.*xLowerStrain)./(1-poissonRatio);
     % xDeltaStress = (xUpperStress - xLowerStress)./2;
     % 
-    yStress = (elasticModulus*1000)./(1-poissonRatio^2)*(yStrain + poissonRatio*xStrain);
+    ninetyStress = (elasticModulus*1000)./(1-poissonRatio^2)*(ninetyStrain + poissonRatio*zeroStrain);
     % yUpperStress = (elasticModulus*1000.*yUpperStrain)./(1-poissonRatio);
     % yLowerStress = (elasticModulus*1000.*yLowerStrain)./(1-poissonRatio);
     % yDeltaStress = (yUpperStress - yLowerStress)./2;
@@ -288,44 +292,43 @@ function DP_non_equibiaxial(saving,path,xStrainFile,yStrainFile,imagesDirection,
     
     %% Residual Stress Plots 
     % Calculation
-    meanxStrain = mean(xStrain, 1, 'omitnan');
-    meanyStrain = mean(yStrain, 1, 'omitnan');
+    meanZeroStrain = mean(zeroStrain, 1, 'omitnan');
+    meanNinetyStrain = mean(ninetyStrain, 1, 'omitnan');
 
-    meanxStress = (elasticModulus*1000)./(1-poissonRatio^2)*(meanxStrain+poissonRatio*meanyStrain);
+    meanZeroStress = (elasticModulus*1000)./(1-poissonRatio^2)*(meanZeroStrain+poissonRatio*meanNinetyStrain);
     % squaredxError = xDeltaStress.^2;
     % elementsx = length(xErrorStrain) - sum(isnan(squaredxError));
     % errorxStress = sqrt(sum(squaredxError, 2))./elementsx; % This might sometimes be s_error = sqrt(nansum(squared_error))./elements;
-    % maxxErrorStress = meanxStress + errorxStress;
-    % minxErrorStress = meanxStress - errorxStress;
+    % maxxErrorStress = meanZeroStress + errorxStress;
+    % minxErrorStress = meanZeroStress - errorxStress;
 
-    meanyStress = (elasticModulus*1000)./(1-poissonRatio^2)*(meanyStrain + poissonRatio*meanxStrain);
+    meanNinetyStress = (elasticModulus*1000)./(1-poissonRatio^2)*(meanNinetyStrain + poissonRatio*meanZeroStrain);
     % squaredyError = yDeltaStress.^2;
     % elementsy = length(yErrorStrain) - sum(isnan(squaredyError));
     % erroryStress = sqrt(sum(squaredyError, 2))./elementsy; % This might sometimes be s_error = sqrt(nansum(squared_error))./elements;
-    % maxyErrorStress = meanyStress + erroryStress;
-    % minyErrorStress = meanyStress - erroryStress;
+    % maxyErrorStress = meanNinetyStress + erroryStress;
+    % minyErrorStress = meanNinetyStress - erroryStress;
     
 
     % Plotting
-    % x data
+    % 0° data
     figure
     set(gcf,'WindowState','maximized')
-    % plot([x x], [maxErrorStress minErrorStress], 'b', 'LineStyle', '--');
-    plot(x, meanxStress, 'b', 'LineWidth', 3);
-    
-    if ~isempty(yLowBound) && ~isempty(yHighBound)
-        ylim([yLowBound yHighBound])
-    elseif isempty(yLowBound) && ~isempty(yHighBound)
-        ylim([-inf yHighBound])
-    elseif ~isempty(yLowBound) && isempty(yHighBound)    
-        ylim([yLowBound inf])
+    % plot([normalizedDepthLinspace normalizedDepthLinspace], [maxErrorStress minErrorStress], 'b', 'LineStyle', '--');
+    if strcmp(xAxisData,"Depth")
+        plot(normalizedDepthLinspace*pillarDiameter, meanZeroStress, 'b', 'LineWidth', 3);
+    else
+        plot(normalizedDepthLinspace, meanZeroStress, 'b', 'LineWidth', 3);
     end
+    
+    xlim([xAxisLowLimit xAxisHighLimit])
+    ylim([yAxisLowLimit yAxisHighLimit])
     
     % lgd = legend(sprintf('D = %d um', pillarDiameter), 'Confidence band limits', 'Averaged profile');
     % lgd = legend('')
     % lgd.Location = 'best';
-    title('Residual stress depth profile in x')
-    if strcmp(xData,"Depth")
+    title('Residual stress depth profile in 0° direction')
+    if strcmp(xAxisData,"Depth")
         xlabel('Depth [µm]')
     else
         xlabel('Normalized depth (h/D)')
@@ -336,37 +339,36 @@ function DP_non_equibiaxial(saving,path,xStrainFile,yStrainFile,imagesDirection,
     box off
     
     if saving == true
-        saveas(gcf, fullfile(resultsDir, 'RS_profile-x.jpg'));
+        saveas(gcf, fullfile(resultsDir, 'RS_profile-0.jpg'));
     end
     
     hold off
     
     if saving == true
-        filename = 'residualStress-x.mat';
-        normalizedDepth = x;
+        filename = 'residualStress-0.mat';
+        normalizedDepth = normalizedDepthLinspace;
         depth = normalizedDepth * pillarDiameter;
-        save(fullfile(resultsDir,filename),'normalizedDepth','depth','xStress','pillarDiameter')
+        save(fullfile(resultsDir,filename),'normalizedDepth','depth','zeroStress','pillarDiameter')
     end
 
-    % y data
+    % 90° data
     figure
     set(gcf,'WindowState','maximized')
-    % plot([x x], [maxErrorStress minErrorStress], 'b', 'LineStyle', '--');
-    plot(x, meanyStress, 'b', 'LineWidth', 3);
-    
-    if ~isempty(yLowBound) && ~isempty(yHighBound)
-        ylim([yLowBound yHighBound])
-    elseif isempty(yLowBound) && ~isempty(yHighBound)
-        ylim([-inf yHighBound])
-    elseif ~isempty(yLowBound) && isempty(yHighBound)    
-        ylim([yLowBound inf])
+    % plot([normalizedDepthLinspace normalizedDepthLinspace], [maxErrorStress minErrorStress], 'b', 'LineStyle', '--');
+    if strcmp(xAxisData,"Depth")
+        plot(normalizedDepthLinspace*pillarDiameter, meanNinetyStress, 'b', 'LineWidth', 3);
+    else
+        plot(normalizedDepthLinspace, meanNinetyStress, 'b', 'LineWidth', 3);
     end
+    
+    xlim([xAxisLowLimit xAxisHighLimit])
+    ylim([yAxisLowLimit yAxisHighLimit])
     
     % lgd = legend(sprintf('D = %d um', pillarDiameter), 'Confidence band limits', 'Averaged profile');
     % lgd = legend('')
     % lgd.Location = 'best';
-    title('Residual stress depth profile in y')
-    if strcmp(xData,"Depth")
+    title('Residual stress depth profile in 90° direction')
+    if strcmp(xAxisData,"Depth")
         xlabel('Depth [µm]')
     else
         xlabel('Normalized depth (h/D)')
@@ -377,15 +379,15 @@ function DP_non_equibiaxial(saving,path,xStrainFile,yStrainFile,imagesDirection,
     box off
     
     if saving == true
-        saveas(gcf, fullfile(resultsDir, 'RS_profile-y.jpg'));
+        saveas(gcf, fullfile(resultsDir, 'RS_profile-90.jpg'));
     end
     
     hold off
     
     if saving == true
-        filename = 'residualStress-y.mat';
-        normalizedDepth = x;
+        filename = 'residualStress-90.mat';
+        normalizedDepth = normalizedDepthLinspace;
         depth = normalizedDepth * pillarDiameter;
-        save(fullfile(resultsDir,filename),'normalizedDepth','depth','yStress','pillarDiameter')
+        save(fullfile(resultsDir,filename),'normalizedDepth','depth','ninetyStress','pillarDiameter')
     end
 end

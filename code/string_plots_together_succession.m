@@ -3,7 +3,7 @@
 % Author: Kento Takahashi
 % Date: End of 2024
 
-function string_plots_together_succession(saving,path,lowerLimitStress,higherLimitStress)
+function string_plots_together_succession(saving,path,xAxisLowLimit, xAxisHighLimit, yAxisLowLimit,yAxisHighLimit)
     filepath = fullfile('results', 'meanRS.mat');
     [~, sampleName] = fileparts(path);
     
@@ -71,14 +71,9 @@ function string_plots_together_succession(saving,path,lowerLimitStress,higherLim
     end
     
     hold off
-
-    if ~isempty(lowerLimitStress) && ~isempty(higherLimitStress)
-        ylim([lowerLimitStress higherLimitStress])
-    elseif isempty(lowerLimitStress) && ~isempty(higherLimitStress)
-        ylim([-inf higherLimitStress])
-    elseif ~isempty(lowerLimitStress) && isempty(higherLimitStress)    
-        ylim([lowerLimitStress inf])
-    end
+    
+    xlim([xAxisLowLimit xAxisHighLimit])
+    ylim([yAxisLowLimit yAxisHighLimit])
     
     xlabel('Depth (µm)')
     ylabel('Residual Stress [MPa]')

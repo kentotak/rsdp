@@ -2,7 +2,7 @@
 % Author: Kento Takahashi
 % Date: 02/2025
 
-function string_plots_together_combined(saving,samplePath,lowerLimitStress,higherLimitStress)
+function string_plots_together_combined(saving,samplePath,xAxisLowLimit,xAxisHighLimit,yAxisLowLimit,yAxisHighLimit)
     highestDepth = 0;
 
     [functionPath,~] = fileparts(mfilename("fullpath"));
@@ -21,7 +21,7 @@ function string_plots_together_combined(saving,samplePath,lowerLimitStress,highe
     cd(samplePath)
     pillarsDirs = selectMultipleFolders();
 
-    allDepths = zeros(1,500*length(pillarsDirs));
+    % allDepths = zeros(1,500*length(pillarsDirs));
 
     % Import data
     for pillar = 1:length(pillarsDirs)
@@ -33,9 +33,12 @@ function string_plots_together_combined(saving,samplePath,lowerLimitStress,highe
         eval(sprintf("stress%d = fileData%d.meanRS';",pillar,pillar))
         eval(sprintf("variance%d = fileData%d.variance';",pillar,pillar))
 
-        eval(sprintf('allDepths(pillar*500-499:pillar*500) = depth%d;',pillar))
+        % eval(sprintf('allDepths(pillar*500-499:pillar*500) = depth%d;',pillar))
     end
 
+    % disp(size(depth1))
+    % disp(size(depth2))
+    allDepths = horzcat(depth1,depth2);
     allUniqueDepths = unique(allDepths);
     allStresses = nan(length(pillarsDirs),length(allUniqueDepths));
     allVariances = nan(length(pillarsDirs),length(allUniqueDepths));
@@ -79,15 +82,8 @@ function string_plots_together_combined(saving,samplePath,lowerLimitStress,highe
     fill(allStdDevsX,allStdDevsY,'b','FaceAlpha',0.2,'EdgeColor','none')
     
     % Setting limits of the stress axis
-    if ~isempty(lowerLimitStress) && ~isempty(higherLimitStress)
-        ylim([lowerLimitStress higherLimitStress])
-    elseif isempty(lowerLimitStress) && ~isempty(higherLimitStress)
-        ylim([-inf higherLimitStress])
-    elseif ~isempty(lowerLimitStress) && isempty(higherLimitStress)    
-        ylim([lowerLimitStress inf])
-    end
-    
-    xlim([.3 2])
+    xlim([xAxisLowLimit xAxisHighLimit])
+    ylim([yAxisLowLimit yAxisHighLimit])
 
     % vertical line at 0
     yline(0,'k--')

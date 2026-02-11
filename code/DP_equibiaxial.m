@@ -1,30 +1,24 @@
 % Purpose: Depth profiling code for the equibiaxial case. This code is meant to be used in the DP app.
 % Authors: Kento Takahashi (KU Leuven, Belgium) and Enrico Salvati (University of Udine, Italy)
-% Date of last change: 25/11/2025
+% Date of last change: 26/01/2026
 
-function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,stepSize,pillarRedFactor,xData,xLowBound,xHighBound,yLowBound,yHighBound, ...
-    pointsSpan,polynomialDegree,elasticModulus,poissonRatio)
+function DP_equibiaxial(saving,path,strainFile,scanDirection,pillarDiameter,stepSize,pillarRedFactor,xAxisData,xAxisLowLimit,xAxisHighLimit, ...
+    yAxisLowLimit,yAxisHighLimit,pointsSpan,polynomialDegree,elasticModulus,poissonRatio,normalizedDepthLowLimit,normalizedDepthHighLimit)
     %% Results directory
     if saving == true
-        resultsDir = fullfile(path, 'results', 'depth_profiling', imagesDirection);
+        resultsDir = fullfile(path, 'results', 'depth_profiling', num2str(scanDirection));
         
         % Checking if it exists
         if ~exist(resultsDir, 'dir')
             mkdir(resultsDir)
         end
     end
-
-    % % Converting depending on x axis
-    % if strcmp(xData,'Depth')
-    %     xLowBound = xLowBound/pillarDiameter;
-    %     xHighBound = xHighBound/pillarDiameter;
-    % end
     
     % Load strain
     if isfile(strainFile)
         strainMatrix = load(strainFile);
     else
-        msgbox(sprintf('Strain file %s not found.',strainFileName))
+        msgbox(sprintf('Strain file %s not found.',strainFile))
         return
     end
 
@@ -50,19 +44,85 @@ function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,st
     
     
     %% Influence factors
-    if pillarRedFactor == 1
-        alpha = 7.575;
-        beta = -1.512;
-        gamma = 16.452;
-    elseif pillarRedFactor == .8
-        alpha = 8.813;
-        beta = 6.647;
-        gamma = 53.852;
-    elseif pillarRedFactor == .6
-        alpha = 7.944;
-        beta = 7.618;
-        gamma = 50.94;
+    % Parameters from previous unpublished code (3rd degree polynomial)
+    switch pillarRedFactor
+        case 1
+            a = 0.00830034053038588;
+            b = 9.25922162105114;
+            c = -29.6417462628184;
+            d = 52.7012477049435;
+            e = -61.4990443762142;
+        case .9
+            a = -0.00945049583207283;
+            b = 4.39489857028253;
+            c = 57.2053013646654;
+            d = -478.701839023408;
+            e = 1048.52238184067;
+        case .8
+            a = -0.000990981823284585;
+            b = 2.01310949415724;
+            c = 73.2269852005373;
+            d = -473.693634336682;
+            e = 901.051810968267;
+        case .7
+            a = 0.000869681387113860;
+            b = 1.38191730352271;
+            c = 63.6764174007203;
+            d = -350.436721347812;
+            e = 580.442082093759;
+        case .6
+            a = 0.000993471878818204;
+            b = 1.16867051444566;
+            c = 54.2916125035276;
+            d = -263.845816970949;
+            e = 386.769477697306;
     end
+
+    % % Pillar reduction factors from Generalised ... paper (3rd degree pol + exp)
+    % switch pillarRedFactor
+    %     case 1
+    %         a = 1.882;
+    %         b = -7.388;
+    %         c = -1.174e1;
+    %         d = 8.223e-1;
+    %     case .9
+    %         a = 1.077e1;
+    %         b = 6.897;
+    %         c = 5.858e1;
+    %         d = 1.003;
+    %     case .8
+    %         a = 9.633;
+    %         b = 7.975;
+    %         c = 6.099e1;
+    %         d = -6.146e-1;
+    %     case .7
+    %         a = 1.126e1;
+    %         b = 9.872;
+    %         c = 1.663e1;
+    %         d = -2.265e2;
+    %     case .6
+    %         a = 1.066e1;
+    %         b = 9.349;
+    %         c = 5.446;
+    %         d = -2.406e2;
+    % end
+
+    % % Pillar reduction factors from Nanoscale ... paper (2nd degree pol + exp)
+    % switch pillarRedFactor
+    %     case 1
+    %         alpha = 7.575;
+    %         beta = -1.512;
+    %         gamma = 16.452;
+    %     case .8
+    %         alpha = 8.813;
+    %         beta = 6.647;
+    %         gamma = 53.852;
+    %     case .6
+    %         alpha = 7.944;
+    %         beta = 7.618;
+    %         gamma = 50.940;
+    % end
+
     
     %% Calculation of parameters (eigenstrain, h/D differences, ...)
     % Data regularisation
@@ -101,12 +161,14 @@ function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,st
     end
     
     
-    %% G(h/D) and F(h/D) influence functions
+    %% G(h/D) and F(h/D) influence functions (3rd order, according to generalised residual stress depth profiling method)
     eps = nan(size(strainRelief)-1);
     
     Gtemp = deltaSRCurveSmoothed./deltaNormalizedDepth;
-    Ftemp = exp(-alpha*midNormalizedDepth).*(alpha-beta+(alpha*beta+2*gamma)*midNormalizedDepth-alpha*gamma*midNormalizedDepth.^2);
-    
+    Ftemp = b + c*midNormalizedDepth + d*midNormalizedDepth.^2 + e*midNormalizedDepth.^3;
+    % Ftemp = exp(-a*midNormalizedDepth).*(a-b+(2*c+a*b)*midNormalizedDepth-(3*d+a*c)*midNormalizedDepth.^2+a*d*midNormalizedDepth.^3);
+    % Ftemp = exp(-alpha*midNormalizedDepth).*(alpha-beta+(alpha*beta+2*gamma)*midNormalizedDepth-alpha*gamma*midNormalizedDepth.^2);
+
     eps(1:length(deltaSRCurveSmoothed)) = -Gtemp./Ftemp; % eps is the residual elastic strain, which is the opposite of the eigenstrain
     depthShift = midNormalizedDepth*pillarDiameter;
     
@@ -136,9 +198,15 @@ function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,st
     
     %% Plotting the smoothed strain relief
     figure
-    plot(normalizedDepth, SRCurveSmoothed, 'r', 'LineWidth', 2)
-    hold on
-    plot(normalizedDepth, strainRelief, 'b.-', 'LineWidth', 2)
+    if strcmp(xAxisData,"Depth")
+        plot(depth, SRCurveSmoothed, 'r', 'LineWidth', 2)
+        hold on
+        plot(depth, strainRelief, 'b.-', 'LineWidth', 2)
+    else
+        plot(normalizedDepth, SRCurveSmoothed, 'r', 'LineWidth', 2)
+        hold on
+        plot(normalizedDepth, strainRelief, 'b.-', 'LineWidth', 2)
+    end
     
     % for i = 1:(length(normalizedDepth)-1)
     %     plot (squeeze(x_error(i,:)), squeeze(lower_bandc(i,:)), 'k', 'LineWidth', 1, 'LineStyle', ':');
@@ -149,7 +217,7 @@ function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,st
     legend('Smoothed Data','Original Data','Location','best')
     title('Strain relief profile')
     box off
-    if strcmp(xData,"Depth")
+    if strcmp(xAxisData,"Depth")
         xlabel('Depth [µm]')
     else
         xlabel('Normalized depth (h/D)')
@@ -161,7 +229,7 @@ function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,st
     set(gca, 'FontName', 'Times New Roman')
     
     if saving == true
-        saveas(gcf, fullfile(resultsDir, sprintf('strain_relief_profile-%s.jpg', strainDirection)));
+        saveas(gcf, fullfile(resultsDir, sprintf('strain_relief_profile-%d.jpg', scanDirection)));
     end
     
     % Define limits
@@ -170,8 +238,9 @@ function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,st
             upperStrain(i) = nan;
             lowerStrain(i) = nan;
         end
+        disp(length(midNormalizedDepth))
         % Only keeping values if h/D in interval
-        if (midNormalizedDepth(i)<xLowBound)||(midNormalizedDepth(i)>xHighBound)||midNormalizedDepth(i) == 0||depthShift(i) == 0
+        if (midNormalizedDepth(i)<min(normalizedDepth))||(midNormalizedDepth(i)>max(normalizedDepth))||midNormalizedDepth(i) == 0||depthShift(i) == 0
             midNormalizedDepth(i) = nan;
             depthShift(i) = nan;
             eps(i) = nan;
@@ -182,14 +251,14 @@ function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,st
     
     %% Interpolations + calculation of stress
     % (assuming elastic isotropy!)
-    x = linspace(0, xHighBound, 500);
+    normalizedDepthLinspace = linspace(normalizedDepthLowLimit, normalizedDepthHighLimit, 500);
     
     [midNormalizedDepthWithoutNaN, epsWithoutNaN, upperStrainWithoutNaN, lowerStrainWithoutNaN] = removeNaNColumns( ...
         midNormalizedDepth, eps, upperStrain, lowerStrain);
     
-    strain = interp1(midNormalizedDepthWithoutNaN, epsWithoutNaN, x, 'linear');
-    upperStrain = interp1(midNormalizedDepthWithoutNaN, upperStrainWithoutNaN, x, 'linear');
-    lowerStrain = interp1(midNormalizedDepthWithoutNaN, lowerStrainWithoutNaN, x, 'linear');
+    strain = interp1(midNormalizedDepthWithoutNaN, epsWithoutNaN, normalizedDepthLinspace, 'linear');
+    upperStrain = interp1(midNormalizedDepthWithoutNaN, upperStrainWithoutNaN, normalizedDepthLinspace, 'linear');
+    lowerStrain = interp1(midNormalizedDepthWithoutNaN, lowerStrainWithoutNaN, normalizedDepthLinspace, 'linear');
     
     % Stress computation
     stress = (elasticModulus*1000.*strain)./(1-poissonRatio);
@@ -217,21 +286,17 @@ function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,st
     
     % Plotting
     % plot([x x], [maxErrorStress minErrorStress], 'b', 'LineStyle', '--');
-    plot(x, meanStress, 'b', 'LineWidth', 3);
-    
-    if ~isempty(yLowBound) && ~isempty(yHighBound)
-        ylim([yLowBound yHighBound])
-    elseif isempty(yLowBound) && ~isempty(yHighBound)
-        ylim([-inf yHighBound])
-    elseif ~isempty(yLowBound) && isempty(yHighBound)    
-        ylim([yLowBound inf])
+    if strcmp(xAxisData,"Depth")
+        plot(normalizedDepthLinspace*pillarDiameter, meanStress, 'b', 'LineWidth', 3);
+    else
+        plot(normalizedDepthLinspace, meanStress, 'b', 'LineWidth', 3);
     end
     
-    % lgd = legend(sprintf('D = %d um', pillarDiameter), 'Confidence band limits', 'Averaged profile');
-    % lgd = legend('')
-    % lgd.Location = 'best';
+    xlim([xAxisLowLimit xAxisHighLimit])
+    ylim([yAxisLowLimit yAxisHighLimit])
+    
     title('Residual stress depth profile.')
-    if strcmp(xData,"Depth")
+    if strcmp(xAxisData,"Depth")
         xlabel('Depth [µm]')
     else
         xlabel('Normalized depth (h/D)')
@@ -242,15 +307,15 @@ function DP_equibiaxial(saving,path,strainFile,imagesDirection,pillarDiameter,st
     box off
     
     if saving == true
-        saveas(gcf, fullfile(resultsDir, sprintf('RS_profile-%s.jpg', strainDirection)));
+        saveas(gcf, fullfile(resultsDir, sprintf('RS_profile-%d.jpg', scanDirection)));
     end
     
     hold off
     
     if saving == true
-        filename = sprintf('residualStress-%s.mat', strainDirection);
-        normalizedDepth = x;
+        filename = sprintf('residualStress-%d.mat', scanDirection);
+        normalizedDepth = normalizedDepthLinspace;
         depth = normalizedDepth * pillarDiameter;
-        save(fullfile(resultsDir,filename),'normalizedDepth','depth','stress','pillarDiameter')
+        save(fullfile(resultsDir,filename),'normalizedDepth','depth','stress','pillarDiameter','strain','meanStrain','meanStress','eps','Gtemp','Ftemp')
     end
 end
