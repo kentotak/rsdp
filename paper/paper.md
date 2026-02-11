@@ -64,13 +64,13 @@ The second point was achieved by moving all the user prompts from `DICT` to a pa
   <tr>
     <td>
       <figure>
-        <img src="./guidebook-DP_app/images/tabs/tab-dic.png">
+        <img src="./images/tabs/tab-dic.png">
         <figcaption><i>DIC tab</i></figcaption>
       </figure>
     </td>
     <td>
       <figure>
-        <img src="./guidebook-DP_app/images/file_list/file_list_parameters-01.png">
+        <img src="./images/file_list/file_list_parameters-01.png">
         <figcaption><i>File list parameters</i></figcaption>
     </td>
   </tr>
@@ -79,3 +79,4 @@ The second point was achieved by moving all the user prompts from `DICT` to a pa
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
 # References
+
