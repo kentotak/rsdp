@@ -1,5 +1,5 @@
 ---
-title: 'RSDP: A MATLAB application for the evaluation of residual stress as a function of depth.'
+title: 'rsdp: A MATLAB application for the evaluation of residual stress as a function of depth.'
 tags:
 - Matlab
 - materials science
@@ -35,15 +35,16 @@ bibliography: paper.bib
 # Summary
 Any processing of materials, whether thermal, mechanical or of any other nature, induces stresses that remain trapped in finished components until they are relieved by their use in service. Those residual stresses can cause early failure of materials or, on the contrary, reinforce them and increase their lifespan [@hauk_structural_1997; @withers_residual_2001; @withers_residual_2001-1].
 
-Works in recent years have been directed towards the estimation of local residual stresses at fine scale, which was made possible by the development of a technique called Focused Ion Beam - Digital Image Correlation (FIB-DIC). This method allows to measure the amplitude of residual stress inside a volume of material milled by means of a gallium ion beam and electron beam imaging [@korsunsky_focused_2009].
+Works in recent years have been directed towards the estimation of local residual stresses at fine scale, which was made possible by the development of the Focused Ion Beam - Digital Image Correlation (FIB-DIC) technique. It allows to estimate the amplitude of residual stress inside a volume of material milled by means of a gallium ion beam and electron beam imaging [@korsunsky_focused_2009].
 
-Latest developments of FIB-DIC have led to the possibility of following the variation of residual stresses inside the volume milled using an eigenstrain approach [@salvati_generalised_2019;@sebastiani_nano-scale_2020]. However, code written in the context of this work was never published although it was used in another paper [@everaerts_nanoscale_2019]. 
+Latest developments of FIB-DIC have led to the possibility of following the variation of residual stresses inside the volume milled using an eigenstrain approach [@salvati_generalised_2019;@sebastiani_nano-scale_2020]. However, code written in the context of this work was never published although it was used in another paper [@everaerts_nanoscale_2019].
 
 # Statement of need
-`RSDP` builds up on a previous MATLAB package developed in the context of the iStress project [@senn_digital_2025]. It adds on the original software by introducing depth profiling of residual stress as described by @salvati_generalised_2019.
+`rsdp` builds up on `DICT`, a MATLAB package developed in the context of the iStress project [@senn_digital_2025]. `DICT` outputs a strain file that is then used in the depth profiling code. The intent behind the development of `rsdp` as an application was to streamline this analysis process; this was originally done to optimize the analysis of multiple datasets.
 
+Moreover, some changes were made to `DICT`: the package was upgraded from GUIDE to App Designer, and a few bugs were corrected.
 
-Moreover, additional functions in the application were added to account for the case where the user wants to analyze multiple points.
+<!-- Moreover, additional functions in the application were added to account for the case where the user wants to analyze multiple points. -->
 
 <!-- # State of the field
 As mentioned above, a Matlab application was developped in the frame of the iStress project for the DIC analysis. However, some defaults during my analysis:
@@ -53,34 +54,12 @@ As mentioned above, a Matlab application was developped in the frame of the iStr
 - The original DIC app was written in GUIDE and some elements were rewritten in App designer. -->
 
 # Software design
-## Changes compared to the original DIC code
-To avoid repetitive input, the prompts were changed to fields. This allows the user to analyze multiple datasets with the same set of parameters. Some other changes include:
-- A clearer image processing
-- An option to automatically generate a file list
+The philosophy behind the development of `rsdp` relies on two main points: (1) Present a clear, stepwise analysis process. (2) Limit user prompts.
 
-## New functions
-### Depth profiling
-The DIC analysis outputs a strain file that is then used to calculate stress as a function of depth.
-<table>
-    <tr>
-        <td>
-            <figure>
-                <img src="./images/example-strain-01.png">
-                <figcaption>
-                    <i>Strain as a function of depth</i>
-                </figcaption>
-            </figure>
-        </td>
-        <td>
-            <figure>
-                <img src="./images/example-dp-01.png">
-                <figcaption>
-                    <i>Residual stress depth profile</i>
-                </figcaption>
-            </figure>
-        </td>
-    </tr>
-</table>
+The first point was achieved by having a tab structure with one step of the process allocated to each tab. The steps of the process are: (1) Data selection. (2) Image processing. (3) DIC analysis. (4) Depth profiling. (5) Additional functions.
 
+The second point was achieved by moving all the user prompts from `DICT` to a parameters window (associated to each tab). This is especially useful for the successive analysis of multiple datasets with the same parameters.
+
+Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
 # References
