@@ -42,9 +42,11 @@ Latest developments of FIB-DIC have led to the possibility of following the vari
 # Statement of need
 `rsdp` builds up on `DICT`, a MATLAB package developed in the context of the iStress project [@senn_digital_2025]. `DICT` outputs a strain file that is then used in the depth profiling code, as shown in the images below. The intent behind the development of `rsdp` as an application was to streamline this analysis process; this was originally done to optimize the analysis of multiple datasets.
 
-| Strain      | Stress as a function of depth |
+<!-- | Strain      | Stress as a function of depth |
 | :------------: | :-----------: |
-<img src="./images/strain_relief_profile-example.jpg">| ![File list parameters \label{fig:file_list_parameters}](./images/RS_profile-example.jpg)|
+<img src="./images/strain_relief_profile-example.jpg">| ![File list parameters \label{fig:file_list_parameters}](./images/RS_profile-example.jpg)| -->
+
+![Example of a strain relief profile.](./images/strain_relief_profile-example.jpg){width=70%}
 
 Moreover, some changes were made to `DICT`: the package was upgraded from GUIDE to App Designer, and a few bugs were corrected.
 
