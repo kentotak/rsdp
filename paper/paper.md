@@ -58,8 +58,9 @@ The second point was achieved by moving all the user prompts from `DICT` to a pa
 
 ![DIC tab.\label{fig:tab-dic}](./images/tabs/tab-dic-02.png){width=70%}
 
-![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png)
+![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png){width=70%}
 
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
 # References
+
