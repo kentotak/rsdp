@@ -33,18 +33,15 @@ bibliography: paper.bib
 ---
 
 # Summary
-Any processing of materials, whether thermal, mechanical or of any other nature, induces stresses that remain trapped in finished components until they are relieved by their use in service. Those residual stresses can cause early failure of materials or, on the contrary, reinforce them and increase their lifespan [@hauk_structural_1997; @withers_residual_2001; @withers_residual_2001-1].
+Any processing of materials, whether thermal, mechanical or of any other nature , induces residual stresses that remain present in finished components, even in the absence of an externally applied load. Those residual stresses affect the mechanical properties of the material and can cause early failure or, on the contrary, reinforce them and increase their lifespan [@hauk_structural_1997; @withers_residual_2001; @withers_residual_2001-1].
 
-Works in recent years have been directed towards the estimation of local residual stresses at fine scale, which was made possible by the development of the Focused Ion Beam - Digital Image Correlation (FIB-DIC) technique. It allows to estimate the amplitude of residual stress inside a volume of material milled by means of a gallium ion beam and electron beam imaging [@korsunsky_focused_2009].
+Research efforts in recent years have been directed towards the evaluation of local residual stresses at the micro- to nanoscale, which was made possible by the development of the ring-core Focused Ion Beam - Digital Image Correlation (FIB-DIC) technique. This technique enables evaluation of the magnitude of average residual stress within the micropillar gauge volume via incremental milling using a FIB,  imaging of the top surface of the micropillar via scanning electron microscopy, DIC analysis on those images to assess incremental strain relief as a function of milling depth and finally fitting of the data to a master curve in order to obtain the total strain relief within the gauge volume. [@korsunsky_focused_2009].
 
-Latest developments of FIB-DIC have led to the possibility of following the variation of residual stresses inside the volume milled using an eigenstrain approach [@salvati_generalised_2019;@sebastiani_nano-scale_2020]. However, code written in the context of this work was never published although it was used in another paper [@everaerts_nanoscale_2019].
+The latest developments of FIB-DIC have led to the possibility of evaluating not just the average residual stress within the gauge volume, but also the variation of residual as a function of depth using an eigenstrain approach [@salvati_generalised_2019;@sebastiani_nano-scale_2020]. However, code written in the context of this work has not yet been published although it was used in other articles [@everaerts_nanoscale_2019;@ sebastiani_nano-scale_2020]. 
+
 
 # Statement of need
-`rsdp` builds up on `DICT`, a MATLAB package developed in the context of the iStress project [@senn_digital_2025]. `DICT` outputs a strain file that is then used in the depth profiling code, as shown in \autoref{fig:strain_relief_profile-example} and \autoref{fig:RS_profile-example}. The intent behind the development of `rsdp` as an application was to streamline this analysis process; this was originally done to optimize the analysis of multiple datasets.
-
-<!-- | Strain      | Stress as a function of depth |
-| :------------: | :-----------: |
-<img src="./images/strain_relief_profile-example.jpg">| ![File list parameters \label{fig:file_list_parameters}](./images/RS_profile-example.jpg)| -->
+rsdp builds up on DICT, an open source  MATLAB package that was developed in the context of the iStress project [@senn_digital_2016]. DICT enables DIC analysis on a set of images and outputs a strain file that is then used in the depth profiling code, as shown in the images  below. The intent behind the development of rsdp as an application was to streamline this analysis process; this was originally done to optimize the analysis of multiple datasets. 
 
 ![Example of a strain relief profile.\label{fig:strain_relief_profile-example}](./images/strain_relief_profile-example.jpg){width=70%}
 
@@ -57,11 +54,11 @@ The philosophy behind the development of `rsdp` relies on two main points: (1) P
 
 The first point was achieved by having a tab structure with one step of the process allocated to each tab. The steps of the process are: (1) Data selection. (2) Image processing. (3) DIC analysis. (4) Depth profiling. (5) Additional functions.
 
-The second point was achieved by moving all the user prompts from `DICT` to a parameters window (associated to each tab). This is especially useful for the successive analysis of multiple datasets with the same parameters (see the images below)
+The second point was achieved by moving all the user prompts from `DICT` to a parameters window (associated to each tab). This is especially useful for the successive analysis of multiple datasets with the same parameters (see \autoref{fig:tab-dic} and \autoref{fig:file_list_parameters}).
 
-| DIC tab      | File list parameters |
-| :------------: | :-----------: |
-<img src="./images/tabs/tab-dic-02.png" width=80%>| ![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png)|
+![DIC tab.\label{fig:tab-dic}](./images/tabs/tab-dic-02.png){width=70%}
+
+![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png)
 
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
