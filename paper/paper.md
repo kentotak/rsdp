@@ -37,7 +37,7 @@ Any processing of materials, whether thermal, mechanical or of any other nature 
 
 Research efforts in recent years have been directed towards the evaluation of local residual stresses at the micro- to nanoscale, which was made possible by the development of the ring-core Focused Ion Beam - Digital Image Correlation (FIB-DIC) technique. This technique enables evaluation of the magnitude of average residual stress within the micropillar gauge volume via incremental milling using a FIB,  imaging of the top surface of the micropillar via scanning electron microscopy, DIC analysis on those images to assess incremental strain relief as a function of milling depth and finally fitting of the data to a master curve in order to obtain the total strain relief within the gauge volume. [@korsunsky_focused_2009].
 
-The latest developments of FIB-DIC have led to the possibility of evaluating not just the average residual stress within the gauge volume, but also the variation of residual as a function of depth using an eigenstrain approach [@salvati_generalised_2019;@sebastiani_nano-scale_2020]. However, code written in the context of this work has not yet been published although it was used in other articles [@everaerts_nanoscale_2019]. 
+The latest developments of FIB-DIC have led to the possibility of evaluating not just the average residual stress within the gauge volume, but also the variation of residual as a function of depth using an eigenstrain approach [@salvati_generalised_2019]. However, code written in the context of this work has not yet been published although it was used in other articles [@everaerts_nanoscale_2019;@sebastiani_nano-scale_2020].
 
 
 # Statement of need
@@ -63,6 +63,7 @@ The second point was achieved by moving all the user prompts from `DICT` to a pa
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
 # References
+
 
 
 
