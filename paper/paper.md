@@ -37,13 +37,20 @@ Any processing of materials induces residual stresses that remain present in fin
 
 Research efforts in recent years have been directed towards the evaluation of local residual stresses at the micro- to nanoscale, which was made possible by the development of the ring-core Focused Ion Beam - Digital Image Correlation (FIB-DIC) technique. This technique enables evaluation of the magnitude of average residual stress within the micropillar gauge volume via incremental milling using a FIB, imaging of the top surface of the micropillar via scanning electron microscopy, DIC analysis on those images to assess incremental strain relief as a function of milling depth and finally fitting of the data to a master curve in order to obtain the total strain relief within the gauge volume. [@korsunsky_focused_2009].
 
-The latest developments of FIB-DIC have led to the possibility of evaluating not just the average residual stress within the gauge volume, but also the variation of residual as a function of depth using an eigenstrain approach [@korsunsky_nanoscale_2018; @salvati_generalised_2019]. However, code written in the context of this work has not yet been published although it was used in other articles [@everaerts_nanoscale_2019; @sebastiani_nano-scale_2020]. 
+The latest developments of FIB-DIC have led to the possibility of evaluating not just the average residual stress within the gauge volume, but also the variation of residual stress as a function of depth using an eigenstrain approach [@korsunsky_nanoscale_2018; @salvati_generalised_2019], i.e., depth profiling. However, code written in the context of this work has not yet been published although it was used in other articles [@everaerts_nanoscale_2019; @sebastiani_nano-scale_2020].
 
+`rsdp` is a tool that allows researchers to perform their entire FIB-DIC analysis process in one interface and includes those latest developments mentioned above.
 
 # Statement of need
-rsdp builds up on DICT, an open source  MATLAB package that was developed in the context of the iStress project [@senn_digital_2016]. DICT enables DIC analysis on a set of images and outputs a strain file that is then used in the depth profiling code, as shown in \autoref{fig:strain_relief_profile-example} and \autoref{fig:RS_profile-example}. The intent behind the development of rsdp as an application was to streamline this analysis process; this was originally done to optimize the analysis of multiple datasets.
+`rsdp` builds up on DICT, an open source  MATLAB package that was developed in the context of the iStress project [@senn_digital_2016]. DICT enables DIC analysis on a set of images (see \autoref{fig:example-DIC_grid}) and outputs a strain file (see \autoref{fig:example-strain_relief_profile}) that is then used to calculate the average residual stress of the gauge volume.
 
-![Example of a strain relief profile.\label{fig:strain_relief_profile-example}](./images/strain_relief_profile-example.jpg){width=70%}
+![Example of a DIC grid.\label{fig:example-DIC_grid}](./images/example-DIC_grid.png)
+
+![Example of a strain relief profile.\label{fig:example-strain_relief_profile}](./images/strain_relief_profile-example.jpg){width=70%}
+
+`rsdp` improves on this aspect by offering the possibility to output a residual stress depth profile (as shown in \autoref{fig:RS_profile-example}), and therefore shows depth-resolved data
+
+The intent behind the development of `rsdp` as an application was to streamline this analysis process; this was originally done to optimize the analysis of multiple datasets.
 
 ![Example of a residual stress profile.\label{fig:RS_profile-example}](./images/RS_profile-example.jpg){width=70%}
 
@@ -61,5 +68,8 @@ The second point was achieved by moving all the user prompts from `DICT` to a pa
 ![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png){width=50%}
 
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
+
+# Research impact statement
+As mentioned above, `rsdp` is part of recent research developments of the FIB-DIC technique. It is used in the PhD project of the main developper of the application, and has already produced tangible results that will be used in an upcoming article. Moreover, @guo_dual-variable_2025 recently extended Salvati's analysis to small scale by introducing a dual-variable influence function, that could be included in the future in `rsdp`.
 
 # References
