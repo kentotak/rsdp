@@ -48,7 +48,7 @@ The latest developments of FIB-DIC have led to the possibility of evaluating not
 
 ![Example of a strain relief profile.\label{fig:example-strain_relief_profile}](./images/strain_relief_profile-example.jpg){width=70%}
 
-`rsdp` improves on `DICT` by offering the possibility to output a residual stress depth profile (as shown in \autoref{fig:RS_profile-example}). This is especially useful for materials where a variation of properties along depth is expected.
+`rsdp` improves on `DICT` by offering the possibility to output a residual stress depth profile (as shown in \autoref{fig:RS_profile-example}). This is especially useful for materials where a variation of properties along depth is expected. `rsdp` includes the possibility to perform an analysis for equibiaxial and non-equibiaxial stresses, therefore accounting for cases where a difference in the amplitude of residual stresses is expected in the plane directions. However, elastic anisotropy has not been taken into consideration. @salvati_uncertainty_2016 describe how to include it into the analysis process, but this has not been done here.
 
 ![Example of a residual stress profile.\label{fig:RS_profile-example}](./images/RS_profile-example.jpg){width=70%}
 
