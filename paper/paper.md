@@ -48,13 +48,13 @@ The latest developments of FIB-DIC have led to the possibility of evaluating not
 
 ![Example of a strain relief profile.\label{fig:example-strain_relief_profile}](./images/strain_relief_profile-example.jpg){width=70%}
 
-`rsdp` improves on this aspect by offering the possibility to output a residual stress depth profile (as shown in \autoref{fig:RS_profile-example}), and therefore shows depth-resolved data
-
-The intent behind the development of `rsdp` as an application was to streamline this analysis process; this was originally done to optimize the analysis of multiple datasets.
+`rsdp` improves on `DICT` by offering the possibility to output a residual stress depth profile (as shown in \autoref{fig:RS_profile-example}). This is especially useful for materials where a variation of properties along depth is expected.
 
 ![Example of a residual stress profile.\label{fig:RS_profile-example}](./images/RS_profile-example.jpg){width=70%}
 
-Moreover, some changes were made to `DICT`: the package was upgraded from GUIDE to App Designer, and a few bugs were corrected.
+Moreover, `rsdp` streamlines the entire FIB-DIC analysis by including all of the steps of the process into one interface; this was originally done to optimize the analysis time of multiple datasets.
+
+Besides, some changes were made to `DICT`: the package was upgraded from GUIDE to App Designer, and a few bugs were corrected.
 
 # Software design
 The philosophy behind the development of `rsdp` relies on two main points: (1) Present a clear, stepwise analysis process. (2) Limit user prompts.
