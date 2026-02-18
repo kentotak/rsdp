@@ -63,7 +63,7 @@ The first point was achieved by having a tab structure with one step of the proc
 
 The second point was achieved by moving all the user prompts from `DICT` to a parameters window (associated to each tab). This is especially useful for the successive analysis of multiple datasets with the same parameters (see \autoref{fig:tab-dic} and \autoref{fig:file_list_parameters}).
 
-![DIC tab.\label{fig:tab-dic}](./images/tabs/tab-dic-02.png){width=70%}
+![DIC tab.\label{fig:tab-dic}](./images/tabs/tab-dic-03.png){width=70%}
 
 ![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png){width=50%}
 
