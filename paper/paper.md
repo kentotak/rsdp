@@ -48,11 +48,11 @@ The latest developments of FIB-DIC have led to the possibility of evaluating not
 
 ![Example of a strain relief profile.\label{fig:example-strain_relief_profile}](./images/example-strain_relief_profile.png){width=70%}
 
-`rsdp` improves on `DICT` by offering the possibility to output a residual stress depth profile (as shown in \autoref{fig:RS_profile-example}). This is especially useful for materials where a variation of properties along depth is expected. `rsdp` includes the possibility to perform an analysis for equibiaxial and non-equibiaxial stresses, therefore accounting for cases where a difference in the amplitude of residual stresses is expected in the plane directions. However, elastic anisotropy has not been taken into consideration. @salvati_uncertainty_2016 describe how to include it into the analysis process, but this has not been done here.
+`rsdp` improves on `DICT` by offering the possibility to output a residual stress depth profile (as shown in \autoref{fig:RS_profile-example}). This is especially useful for materials where a variation of properties along depth is expected. `rsdp` includes the possibility to perform an analysis for equibiaxial and non-equibiaxial stresses, therefore accounting for cases where a difference in the magnitude of residual stresses is expected in the in-plane directions.
 
 ![Example of a residual stress profile.\label{fig:RS_profile-example}](./images/example-residual_stress_profile.png){width=70%}
 
-Moreover, `rsdp` streamlines the entire FIB-DIC analysis by including all of the steps of the process into one interface; this was originally done to optimize the analysis time of multiple datasets.
+Moreover, `rsdp` streamlines the entire FIB-DIC analysis by including all of the steps of the process into one interface. This optimizes the analysis of multiple datasets, which is another feature that was not available in the DICT package.
 
 Besides, some changes were made to `DICT`: the package was upgraded from GUIDE to App Designer, and a few bugs were corrected.
 
@@ -65,11 +65,11 @@ The second point was achieved by moving all the user prompts from `DICT` to a pa
 
 ![DIC tab.\label{fig:tab-dic}](./images/tabs/tab-dic-03.png){width=70%}
 
-![File list parameters \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png){width=50%}
+![File list parameters. \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png){width=50%}
 
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
 # Research impact statement
-As mentioned above, `rsdp` is part of recent research developments of the FIB-DIC technique. It is used in the PhD project of the main developper of the application, and has already produced tangible results that will be used in an upcoming article. Moreover, @guo_dual-variable_2025 recently extended Salvati's analysis to small scale by introducing a dual-variable influence function, that could be included in the future in `rsdp`.
+As mentioned above, `rsdp` is part of recent research developments of the FIB-DIC technique. It is used in the PhD project of the main developper of the application, and has already produced tangible results that will be used in an upcoming article. Moreover, @guo_dual-variable_2025 recently proposed an improved method to account for high stress gradients, which could be included in `rsdp` in the future.
 
 # References
