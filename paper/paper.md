@@ -44,11 +44,11 @@ The latest developments of FIB-DIC have led to the possibility of evaluating not
 # Statement of need
 `rsdp` builds up on `DICT`, an open source  MATLAB package that was developed in the context of the iStress project [@senn_digital_2016]. `DICT` enables DIC analysis on a set of images (see \autoref{fig:example-DIC_grid}) and outputs a strain file (see \autoref{fig:examples-SR-RS}) that is then used to calculate the average residual stress of the gauge volume.
 
-![Example of a DIC grid.\label{fig:example-DIC_grid}](./images/example-DIC_grid-03.png){width=70%}
+![DIC grid used to follow the displacements caused by progressive milling.\label{fig:example-DIC_grid}](./images/example-DIC_grid-03.png){width=70%}
 
 `rsdp` offers the possibility to output a residual stress depth profile (as shown in \autoref{fig:examples-SR-RS}). This is especially useful for materials where a variation of residual stress along depth is expected. `rsdp` includes the possibility to perform an analysis for an equibiaxial stress state (i.e., with the same magnitude of stress in the in-plane directions) and a non-equibiaxial stress state (i.e., where a difference in the magnitude of residual stresses is expected in the in-plane directions).
 
-![Left: Example of a strain relief profile. Right: Example of a residual depth profile.\label{fig:examples-SR-RS}](./images/examples-sr_profile-rs_profile-02.png)
+![Depth resolved data plotted using `rsdp`. Left: Example of a strain relief profile. Right: Example of a residual depth profile.\label{fig:examples-SR-RS}](./images/examples-sr_profile-rs_profile-02.png)
 
 Moreover, `rsdp` streamlines the entire FIB-DIC analysis by including all of the steps of the process into one interface. This optimizes the analysis of multiple datasets.
 
