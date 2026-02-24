@@ -48,7 +48,7 @@ The latest developments of FIB-DIC have led to the possibility of evaluating not
 
 `rsdp` offers the possibility to output a residual stress depth profile (as shown in \autoref{fig:examples-SR-RS}). This is especially useful for materials where a variation of residual stress along depth is expected. `rsdp` includes the possibility to perform an analysis for an equibiaxial stress state (i.e., with the same magnitude of stress in the in-plane directions) and a non-equibiaxial stress state (i.e., where a difference in the magnitude of residual stresses is expected in the in-plane directions).
 
-![Depth resolved data plotted using `rsdp`. Left: Example of a strain relief profile. Right: Example of a residual depth profile derived from the strain relief profile.\label{fig:examples-SR-RS}](./images/examples-sr_profile-rs_profile-02.png)
+![Depth resolved data plotted using `rsdp`. Left: Example of a strain relief profile. Right: Example of a residual depth profile derived from this strain relief profile.\label{fig:examples-SR-RS}](./images/examples-sr_profile-rs_profile-02.png)
 
 Moreover, `rsdp` streamlines the entire FIB-DIC analysis by including all of the steps of the process into one interface. This optimizes the analysis of multiple datasets.
 
