@@ -46,13 +46,11 @@ The latest developments of FIB-DIC have led to the possibility of evaluating not
 
 ![Example of a DIC grid.\label{fig:example-DIC_grid}](./images/example-DIC_grid-03.png){width=70%}
 
-`rsdp` improves on `DICT` by offering the possibility to output a residual stress depth profile (as shown in \autoref{fig:examples-SR-RS}). This is especially useful for materials where a variation of residual stress along depth is expected. `rsdp` includes the possibility to perform an analysis for an equibiaxial stress state (i.e., with the same magnitude of stress in the in-plane directions) and a non-equibiaxial stress state (i.e., where a difference in the magnitude of residual stresses is expected in the in-plane directions).
+`rsdp` offers the possibility to output a residual stress depth profile (as shown in \autoref{fig:examples-SR-RS}). This is especially useful for materials where a variation of residual stress along depth is expected. `rsdp` includes the possibility to perform an analysis for an equibiaxial stress state (i.e., with the same magnitude of stress in the in-plane directions) and a non-equibiaxial stress state (i.e., where a difference in the magnitude of residual stresses is expected in the in-plane directions).
 
 ![Left: Example of a strain relief profile. Right: Example of a residual depth profile.\label{fig:examples-SR-RS}](./images/examples-sr_profile-rs_profile-02.png)
 
-Moreover, `rsdp` streamlines the entire FIB-DIC analysis by including all of the steps of the process into one interface. This optimizes the analysis of multiple datasets, which is another feature that was not available in the DICT package.
-
-Besides, some changes were made to `DICT`: the package was upgraded from GUIDE to App Designer, and a few bugs were corrected.
+Moreover, `rsdp` streamlines the entire FIB-DIC analysis by including all of the steps of the process into one interface. This optimizes the analysis of multiple datasets.
 
 # Software design
 The philosophy behind the development of `rsdp` relies on two main points: (1) Propose a clear, stepwise analysis process. (2) Limit user prompts.
