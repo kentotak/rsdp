@@ -20,13 +20,13 @@ A typical FIB-DIC analysis goes as follows:
 ## Image acquisition
 The [FIB-DIC Good practice guide](https://eprintspublications.npl.co.uk/7807/) recommends to take multiple images during after every milling step and to average them.
 
-The diagram below represents the three potential scan directions used during image acquisition: 0°, 45° and 90°. 
+The diagram below represents the three potential scan directions used during image acquisition: 0°, 45° and 90°.
 
 <center>
     <figure>
         <img src='./images/pillar_directions_0.png'>
         <figcaption>
-            Scan directions
+            <i>Scan directions</i>
         </figcaption>
     </figure>
 </center>
@@ -71,7 +71,7 @@ The 'workfolder' shown below is the directory where all modified files are locat
     <figure>
         <img src="./images/workfolder.png" width=50%>
         <figcaption>
-            Workfolder
+            <i>Workfolder</i>
         </figcaption>
     </figure>
 </center>
@@ -86,7 +86,7 @@ The direction of the images can also be chosen, depending on if the user made SE
     <figure>
         <img src="./images/tabs/tab-data_selection.png" width=50%>
         <figcaption>
-            Data selection tab
+            <i>Data selection tab</i>
         </figcaption>
     </figure>
     <figure>
@@ -94,12 +94,12 @@ The direction of the images can also be chosen, depending on if the user made SE
         <img src="./images/data_selection/data_selection-45.png">
         <img src="./images/data_selection/data_selection-90.png">
         <figcaption>
-            Data selection
+            <i>Data selection</i>
         </figcaption>
     </figure>
 </center>
 
-The application will try to find a raw folder with the images. If the folder does not exist, then the user cannot go further.
+The application will try to find a raw folder with the images. If the folder does not exist, then the user cannot proceed.
 
 Selecting the data will also change the [workfolder](#files-structure) accordingly.
 
@@ -119,8 +119,22 @@ Generally, it is recommended to first align the images and then average them in 
 
 <table>
     <tr>
-        <td style="width:45%"><img src="./images/tabs/tab-image_processing.png"></td>
-        <td><img src="./images/image_processing/image_processing_parameters-01.png"></td>
+        <td>
+            <figure>
+                <img src="./images/tabs/tab-image_processing.png">
+                <figcaption>
+                    <i>Image processing tab</i>
+                </figcaption>
+            </figure>
+        </td>
+        <td>
+            <figure>
+                <img src="./images/image_processing/image_processing_parameters-01.png">
+                <figcaption>
+                    <i>Image processing parameters</i>
+                </figcaption>
+            </figure>
+        </td>
     </tr>
 </table>
 
@@ -136,20 +150,20 @@ Those steps were kept the same here, with less prompts for the user. For example
 <center>
     <figure>
         <img src="./images/tabs/tab-dic.png" width=40%>
-        <figcaption>DIC tab</figcaption>
+        <figcaption><i>DIC tab</i></figcaption>
     </figure>
     <table>
         <tr>
             <td>
                 <figure>
                     <img src="./images/file_list/file_list_parameters-01.png">
-                    <figcaption>File list parameters</figcaption>
+                    <figcaption><i>File list parameters</i></figcaption>
                 </figure>
             </td>
             <td>
                 <figure>
                     <img src="./images/parameters-process_correlations.png">
-                    <figcaption>Process correlation parameters</figcaption>
+                    <figcaption><i>Process correlation parameters</i></figcaption>
                 </figure>
             </td>
         </tr>
@@ -158,12 +172,10 @@ Those steps were kept the same here, with less prompts for the user. For example
 
 The displacement analysis application was slightly changed as it was noted that the markers selection controls did not appear before.
 
-<table>
-    <tr>
-        <td><figure><img src="./images/app-displacement_analysis.png"><figcaption>Displacement Analysis application</figcaption></figure></td>
-        <td></td>
-    </tr>
-</table>
+<figure>
+    <img src="./images/app-displacement_analysis.png">
+    <figcaption><i>Displacement Analysis application</i></figcaption>
+</figure>
 
 ### Depth profiling
 Three types of depth profiling are possible, depending on the type of stress expected in the material:
@@ -185,8 +197,15 @@ The user can also adjust parameters for depth profiling:
 
 <table>
     <tr>
-        <td style="width:45%"><img src="./images/tabs/tab-dp.png"></td>
-        <td><img src="./images/dp_parameters/dp_parameters-data_selection-01.png"></td>
+        <td>
+            <figure>
+                <img src="./images/tabs/tab-dp.png">
+                <figcaption><i>Depth profiling</i></figcaption>
+            </figure>
+        </td>
+        <td>
+            <img src="./images/dp_parameters/dp_parameters-data_selection-01.png">
+        </td>
     </tr>
     <tr>
         <td><img src="./images/dp_parameters/dp_parameters-data_selection-02.png"></td>
@@ -223,8 +242,18 @@ Stringing allows to plot multiple averaged curves one after the other. The *Succ
 The user can compare two samples for one pillar diameter, or entirely.
 <table>
     <tr>
-        <td style="width:45%"><img src="./images/tabs/tab-compare.png"></td>
-        <td><img src="./images/parameters-comparison.png"></td>
+        <td>
+            <figure>
+                <img src="./images/tabs/tab-compare.png">
+                <figcaption><i>Comparison tab</i></figcaption>
+            </figure>
+        </td>
+        <td>
+            <figure>
+                <img src="./images/parameters-comparison.png">
+                <figcaption><i>Comparison parameters</i></figcaption>
+            </figure>
+        </td>
     </tr>
 </table>
 
