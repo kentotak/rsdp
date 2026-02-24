@@ -1,5 +1,5 @@
 ---
-title: 'rsdp: A MATLAB application for the evaluation of residual stress as a function of depth.'
+title: 'rsdp: A MATLAB application for the evaluation of depth resolved residual stress at the nanoscale.'
 tags:
 - Matlab
 - materials science
@@ -42,15 +42,13 @@ The latest developments of FIB-DIC have led to the possibility of evaluating not
 `rsdp` is a tool that allows researchers to perform their entire FIB-DIC analysis process in one interface and includes those latest developments mentioned above.
 
 # Statement of need
-`rsdp` builds up on DICT, an open source  MATLAB package that was developed in the context of the iStress project [@senn_digital_2016]. DICT enables DIC analysis on a set of images (see \autoref{fig:example-DIC_grid}) and outputs a strain file (see \autoref{fig:example-strain_relief_profile}) that is then used to calculate the average residual stress of the gauge volume.
+`rsdp` builds up on `DICT`, an open source  MATLAB package that was developed in the context of the iStress project [@senn_digital_2016]. `DICT` enables DIC analysis on a set of images (see \autoref{fig:example-DIC_grid}) and outputs a strain file (see \autoref{fig:example-strain_relief_profile}) that is then used to calculate the average residual stress of the gauge volume.
 
-![Example of a DIC grid.\label{fig:example-DIC_grid}](./images/example-DIC_grid.png)
-
-![Example of a strain relief profile.\label{fig:example-strain_relief_profile}](./images/example-strain_relief_profile.png){width=70%}
+![Example of a DIC grid.\label{fig:example-DIC_grid}](./images/example-DIC_grid-03.png)
 
 `rsdp` improves on `DICT` by offering the possibility to output a residual stress depth profile (as shown in \autoref{fig:RS_profile-example}). This is especially useful for materials where a variation of properties along depth is expected. `rsdp` includes the possibility to perform an analysis for equibiaxial and non-equibiaxial stresses, therefore accounting for cases where a difference in the magnitude of residual stresses is expected in the in-plane directions.
 
-![Example of a residual stress profile.\label{fig:RS_profile-example}](./images/example-residual_stress_profile.png){width=70%}
+![Left: Example of a strain relief profile. Right: Example of a residual depth profile.\label{fig:examples-SR-RS}](./images/examples-sr_profile-rs_profile-02.png){width=70%}
 
 Moreover, `rsdp` streamlines the entire FIB-DIC analysis by including all of the steps of the process into one interface. This optimizes the analysis of multiple datasets, which is another feature that was not available in the DICT package.
 
@@ -63,9 +61,7 @@ The first point was achieved by having a tab structure with one step of the proc
 
 The second point was achieved by moving all the user prompts from `DICT` to a parameters window (associated to each tab). This is especially useful for the successive analysis of multiple datasets with the same parameters (see \autoref{fig:tab-dic} and \autoref{fig:file_list_parameters}).
 
-![DIC tab.\label{fig:tab-dic}](./images/tabs/tab-dic-03.png){width=70%}
-
-![File list parameters. \label{fig:file_list_parameters}](./images/file_list/file_list_parameters-02.png){width=50%}
+![DIC tab and file list parameters.\label{fig:tab-dic}](./images/tab_dic-filelist_parameters-01.png){width=70%}
 
 Additional minor changes were made during development, such as the option to create a file list automatically, and different image processing filters among others.
 
