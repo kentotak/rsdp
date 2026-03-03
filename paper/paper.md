@@ -1,5 +1,5 @@
 ---
-title: 'rsdp: A MATLAB application for the evaluation of depth resolved residual stress at the nanoscale.'
+title: 'rsdp: A MATLAB application for the evaluation of nanoscale depth-resolved residual stresses via ring-core FIB-DIC'
 tags:
 - Matlab
 - materials science
