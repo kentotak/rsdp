@@ -24,6 +24,8 @@ You may either
 1. Directly download this repository
 2. Clone it using: git clone https://github.com/kentotak/depth_profiling_app.git.
 
+The installation is `/code/rsdp.mltbx`. Simply double-click the file or go to the App tab in Matlab and click on *Install app*.
+
 ## Usage
 See the guidebook.
 
