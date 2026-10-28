@@ -30,7 +30,7 @@ poissonRatio = .36;
 samplesPath = uigetdir;
 
 % Loop on samples
-samples = dir(samplesPath)
+samples = dir(samplesPath);
 samples = samples([samples.isdir]);
 samples(strcmp({samples.name},'results')) = [];
 for k = 1:length(samples)
