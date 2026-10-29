@@ -1,37 +1,27 @@
-% Apply averaging_1_pillar.m to all 5 and 10 µm diameter pillars folders
-% for all samples in samplesPath.
-% Author: Kento Takahashi
-% Date of last edit: 17/04/2026
+function averaging_1_pillar_multiple(samplePath, saving, scanDirection, xAxisData, xAxisLimits, yAxisLimits, individualPlotsOption, normalizedDepthLimits, fontName, fontSize)
+    % Apply averaging_1_pillar.m to the 5 and 10 µm pillar diameter folders for one sample.
+    % Author: Kento Takahashi - KU Leuven
 
-addpath('..')
+    arguments
+        samplePath string {mustBeFolder}
+        saving (1,1) logical = 0
+        scanDirection (1,1) double = 0
+        xAxisData string = "normalizedDepth" % "normalizedDepth" or "depth"
+        xAxisLimits (1,2) double = [-inf inf]
+        yAxisLimits (1,2) double = [-inf inf]
+        individualPlotsOption (1,1) logical = 0
+        normalizedDepthLimits (1,2) double = [.05 .2]
+        fontName string = 'Arial'
+        fontSize (1,1) double = 20
+    end
 
-saving = false;
+    addpath(fullfile('..', 'additional_functions'))
+    
+    pillarDiameters = [5, 10];
+    pillarDirs = dir(fullfile(samplePath, '*um_pillar'));    
 
-scanDirection = 0;
-normalizedDepthLowLimit = 0.05;
-normalizedDepthHighLimit = .2;
-
-xAxisLowLimit = normalizedDepthLowLimit-.01;
-xAxisHighLimit = normalizedDepthHighLimit+.01;
-
-yAxisLowLimit = -inf;
-yAxisHighLimit = inf;
-
-indidualPlotsOption = false;
-
-samplesPath = uigetdir;
-samples = dir(samplesPath);
-samples(strcmp({samples.name},'results')) = [];
-samples = samples([samples.isdir]);
-for k = 1:length(samples)
-    pillarPath = fullfile(samples(k).folder,samples(k).name,'05um_pillar');
-    pillarDiameter = 5;
-    averaging_1_pillar(saving, pillarPath, pillarDiameter, xAxisLowLimit, xAxisHighLimit, yAxisLowLimit, yAxisHighLimit, indidualPlotsOption, ...
-        scanDirection,normalizedDepthLowLimit,normalizedDepthHighLimit)
-
-    pillarPath = fullfile(samples(k).folder,samples(k).name,'10um_pillar');
-    pillarDiameter = 10;
-    averaging_1_pillar(saving, pillarPath, pillarDiameter, xAxisLowLimit, xAxisHighLimit, yAxisLowLimit, yAxisHighLimit, indidualPlotsOption, ...
-        scanDirection,normalizedDepthLowLimit,normalizedDepthHighLimit)
+    for pillar = 1:numel(pillarDiameters)
+        pillarPath = fullfile(pillarDirs(pillar).folder,pillarDirs(pillar).name);
+        averaging_1_pillar(pillarPath, saving, scanDirection, xAxisData, xAxisLimits, yAxisLimits, individualPlotsOption, normalizedDepthLimits, fontName, fontSize)
+    end
 end
-
