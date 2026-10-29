@@ -1,5 +1,5 @@
 function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAxisLimits, yAxisLimits, fontName, fontSize)
-    % Plot 5 and 10 µm PD results on the same graph.
+    % Plot 5 and 10 µm pillar diameter results on the same graph.
     % A weighted average is calculated between 0.5 and 1 µm, either linear or adjusted to the influence function.
     % Author: Kento Takahashi - KU Leuven
 
