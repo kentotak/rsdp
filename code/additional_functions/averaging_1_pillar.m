@@ -23,18 +23,20 @@ function averaging_1_pillar(pillarPath, saving, scanDirection, xAxisData, xAxisL
     seriesDirectories = allSeries([allSeries.isdir] & ~ismember({allSeries.name}, {'.', '..', 'results'}));
     
     % Creating the directory for saving the plots
-    resultsDir = fullfile(pillarPath, 'results');
-
-    if ~exist(resultsDir, 'dir')
-        mkdir(resultsDir)
+    if saving
+        resultsDir = fullfile(pillarPath, 'results');
+    
+        if ~exist(resultsDir, 'dir')
+            mkdir(resultsDir)
+        end
     end
 
     %% Import data
-    data.normalizedDepth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).normalizedDepth(:);
-    data.depth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).depth(:);
+    data.normalizedDepth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).data.normalizedDepth(:);
+    data.depth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).data.depth(:);
     data.nbSeries = numel(seriesDirectories);
     for series = 1:data.nbSeries
-        data.residualStress(:, series) = load(fullfile(pillarPath, seriesDirectories(series).name, filepath)).stress(:);
+        data.residualStress(:, series) = load(fullfile(pillarPath, seriesDirectories(series).name, filepath)).data.residualStress(:);
     end
 
     %% Compute averaged stress and standard deviation
@@ -60,7 +62,9 @@ function averaging_1_pillar(pillarPath, saving, scanDirection, xAxisData, xAxisL
     fill(data.stdDevX, data.stdDevY, 'b', 'FaceAlpha', 0.2, 'EdgeColor', 'none') % Standard deviation
 
     if individualPlotsOption % Individual plots
-        plot(data.(xAxisData), data.residualStress(:, series))
+        for series = 1:data.nbSeries
+            plot(data.(xAxisData), data.residualStress(:, series))
+        end
     end
     
     hold off
@@ -79,6 +83,8 @@ function averaging_1_pillar(pillarPath, saving, scanDirection, xAxisData, xAxisL
 
     set(gca, 'FontName', fontName)
     set(gca, 'FontSize', fontSize)
+    set(gca, 'Color', 'none')
+    box off
 
     %% Saving
     if saving
