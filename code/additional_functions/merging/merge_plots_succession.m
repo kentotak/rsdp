@@ -1,29 +1,27 @@
-function merge_plots_succession(path,saving,xAxisLimits,yAxisLimits,fontName,fontSize)
+function merge_plots_succession(samplePath,saving,xAxisLimits,yAxisLimits,fontName,fontSize)
     % This function strings results for multiple pillar sizes together.
     % This code is meant to be used with the DP app.
     % Author: Kento Takahashi
-    % Date: 12/10/2026 (added arguments definition)
 
     arguments
-        path string {mustBeFolder}
+        samplePath string {mustBeFolder}
         saving (1,1) logical = 0
-        xAxisLimits (1,2) double = [-inf inf]
-        yAxisLimits (1,2) double = [-inf inf]
+        xAxisLimits (1,2) double = [-inf inf] % [] or [µm]
+        yAxisLimits (1,2) double = [-inf inf] % [MPa]
         fontName string = 'Arial'
         fontSize (1,1) double = 20
     end
 
     %% Paths
     filepath = fullfile('results', 'meanRS.mat');
-    [~, sampleName] = fileparts(path);
+    [~, sampleName] = fileparts(samplePath);
     
     % Creating the directory for saving the plots
-    resultsDir = fullfile(path, 'results');
+    resultsDir = fullfile(samplePath, 'results');
     
     if ~exist(resultsDir, 'dir')
         mkdir(resultsDir)
     end
-    cd(path)
     
     % Results structure array
     mergedData = struct('depth',cell(1),'meanRS',cell(1));
