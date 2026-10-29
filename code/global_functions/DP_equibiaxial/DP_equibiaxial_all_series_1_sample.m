@@ -20,7 +20,7 @@ function DP_equibiaxial_all_series_1_sample(samplePath, stepSize, pillarRedFacto
         fontSize (1,1) double = 20
     end
 
-    addpath(fullfile('..', 'depth_profiling'))
+    addpath(fullfile('..', '..', 'depth_profiling'))
     
     pillarDiameters = [5, 10];
 
