@@ -15,7 +15,7 @@ function averaging_all_pillars_1_sample(samplePath, saving, scanDirection, xAxis
         fontSize (1,1) double = 20
     end
 
-    addpath(fullfile('..', 'additional_functions'))
+    addpath(fullfile('..', '..', 'additional_functions'))
     
     pillarDiameters = [5, 10];
     pillarDirs = dir(fullfile(samplePath, '*um_pillar'));    

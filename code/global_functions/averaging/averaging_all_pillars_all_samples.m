@@ -16,7 +16,7 @@ function averaging_all_pillars_all_samples(doePath, showPlotsOption, saving, sca
         fontSize (1,1) double = 20
     end
     
-    addpath(fullfile('..', 'additional_functions'))
+    addpath(fullfile('..', '..', 'additional_functions'))
     
     samplesDirs = dir(fullfile(doePath, 't*'));
     samplesDirs = samplesDirs([samplesDirs.isdir]);
