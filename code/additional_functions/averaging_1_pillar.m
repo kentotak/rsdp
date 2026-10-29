@@ -32,38 +32,39 @@ function averaging_1_pillar(pillarPath, saving, scanDirection, xAxisData, xAxisL
     end
 
     %% Import data
-    data.normalizedDepth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).data.normalizedDepth(:);
-    data.depth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).data.depth(:);
-    data.nbSeries = numel(seriesDirectories);
-    for series = 1:data.nbSeries
-        data.residualStress(:, series) = load(fullfile(pillarPath, seriesDirectories(series).name, filepath)).data.residualStress(:);
+    normalizedDepth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).data.normalizedDepth(:);
+    depth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).data.depth(:);
+    nbSeries = numel(seriesDirectories);
+    for series = 1:nbSeries
+        residualStress(:, series) = load(fullfile(pillarPath, seriesDirectories(series).name, filepath)).data.residualStress(:);
     end
 
     %% Compute averaged stress and standard deviation
-    data.meanRS = mean(data.residualStress, 2);
-    data.stdDev = std(data.residualStress, 0, 2);
+    meanRS = mean(residualStress, 2);
+    stdDev = std(residualStress, 0, 2);
 
     % Keep values in normalized depth interval specified by normalizedDepthLimits
-    mask = ~isnan(data.meanRS+data.stdDev) & data.normalizedDepth >= normalizedDepthLimits(1) & data.normalizedDepth <= normalizedDepthLimits(2);
+    mask = ~isnan(meanRS+stdDev) & normalizedDepth >= normalizedDepthLimits(1) & normalizedDepth <= normalizedDepthLimits(2);
 
-    data.normalizedDepth = data.normalizedDepth(mask);
-    data.depth = data.depth(mask);
-    data.meanRS = data.meanRS(mask);
-    data.stdDev = data.stdDev(mask);
+    data.normalizedDepth = normalizedDepth(mask);
+    data.depth = depth(mask);
+    data.meanRS = meanRS(mask);
+    data.stdDev = stdDev(mask);
+    data.variance = data.stdDev.^2;
 
     data.stdDevX = [data.(xAxisData);flipud(data.(xAxisData))];
-    data.stdDevY = [data.meanRS+data.stdDev;flipud(data.meanRS-data.stdDev)];
+    data.stdDevY = [meanRS+stdDev;flipud(meanRS-stdDev)];
 
     %% Plot
     figure
     hold on
 
-    plot(data.(xAxisData), data.meanRS, 'LineWidth', 3) % Residual stress
+    plot(data.(xAxisData), meanRS, 'LineWidth', 3) % Residual stress
     fill(data.stdDevX, data.stdDevY, 'b', 'FaceAlpha', 0.2, 'EdgeColor', 'none') % Standard deviation
 
     if individualPlotsOption % Individual plots
-        for series = 1:data.nbSeries
-            plot(data.(xAxisData), data.residualStress(:, series))
+        for series = 1:nbSeries
+            plot(data.(xAxisData), residualStress(:, series))
         end
     end
     
