@@ -1,7 +1,6 @@
 function plots_5_10_test_weighting(samplePath,saving,weightedMeanOption,weightedMeanType,polyFitOption,polyDegree,xAxisLimits,yAxisLimits)
     % Plot 5 and 10 µm PD results on the same graph.
-    % A polynomial fit can be added and a weighted average, either linear or adjusted to the
-    % influence function can be calculated between 0.5 and 1 µm.
+    % Try a merging type.
     % Author: Kento Takahashi
     % Date of last edit: 29/09/2026
 
