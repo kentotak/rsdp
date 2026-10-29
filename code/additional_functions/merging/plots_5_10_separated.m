@@ -1,8 +1,10 @@
-function plots_5_10_separated(samplePath,saving,savingPath,xAxisLimits,yAxisLimits,fontName,fontSize)
+function plots_5_10_separated(samplePath, saving, savingPath, xAxisLimits, yAxisLimits, fontName, fontSize)
+    % Plot averaged data for 5 and 10 µm diameter pillars on same graph.
+    % Author: Kento Takahashi - KU Leuven
 
     arguments
         samplePath string {mustBeFolder}
-        saving logical = 0
+        saving (1,1) logical = 0
         savingPath string {mustBeFolder} = ''
         xAxisLimits (1,2) double = [-inf inf]
         yAxisLimits (1,2) double = [-inf inf]
@@ -15,7 +17,7 @@ function plots_5_10_separated(samplePath,saving,savingPath,xAxisLimits,yAxisLimi
     axesColor = 'black';
 
     % Importing other functions
-    [functionPath,~] = fileparts(mfilename("fullpath"));
+    [functionPath, ~] = fileparts(mfilename("fullpath"));
     addpath(functionPath)
 
     % Sample name
@@ -28,10 +30,10 @@ function plots_5_10_separated(samplePath,saving,savingPath,xAxisLimits,yAxisLimi
 
     %% Import data
     mergedData = struct;
-    pillarsDirs = {fullfile(samplePath,'05um_pillar'),fullfile(samplePath,'10um_pillar')};
+    pillarsDirs = {fullfile(samplePath, '05um_pillar'), fullfile(samplePath, '10um_pillar')};
 
     for pillar = 1:length(pillarsDirs)
-        fileData = load(fullfile(pillarsDirs{pillar},filepath)).data;
+        fileData = load(fullfile(pillarsDirs{pillar}, filepath)).data;
         meanRS = fileData.meanRS;
         stdDev = fileData.stdDev;
 
@@ -55,13 +57,6 @@ function plots_5_10_separated(samplePath,saving,savingPath,xAxisLimits,yAxisLimi
     f = figure;
     hold on
 
-    % Merge data
-    % pillarData(1).stdDevX = [vertcat(pillarData(1).depth);flipud(vertcat(pillarData(1).depth))];
-    % pillarData(2).stdDevX = [vertcat(pillarData(2).depth);flipud(vertcat(pillarData(2).depth))];
-    % pillarData(1).stdDevY = [pillarData(1).meanRS + pillarData(1).stdDev; flipud(pillarData(1).meanRS - pillarData(1).stdDev)];
-    % pillarData(2).stdDevY = [pillarData(2).meanRS + pillarData(2).stdDev; flipud(pillarData(2).meanRS - pillarData(2).stdDev)];
-    % mergedData = struct('depth',vertcat(pillarData.depth),'meanRS',vertcat(pillarData.meanRS),'stdDevX',pillarData.stdDevX,'stdDevY',pillarData.stdDevY);
-
     % Plot RS and standard deviation
     scatter(vertcat(mergedData.depth), vertcat(mergedData.meanRS), 20, 'filled', 'MarkerFaceColor', plotColor)
     fill(mergedData(1).stdDevX, mergedData(1).stdDevY, '', 'FaceColor', plotColor, 'FaceAlpha', 0.2, 'EdgeColor', 'none')
@@ -71,24 +66,24 @@ function plots_5_10_separated(samplePath,saving,savingPath,xAxisLimits,yAxisLimi
     xlabel('Depth (µm)')
     ylabel('Residual Stress [MPa]')
     % title(sprintf('Sample %s - Weighted mean between 0.5 and 1 µm', mergedData.sampleName))
-    legend({'Averaged stress','Standard deviation'},'Location','southeast')
+    legend({'Averaged stress', 'Standard deviation'}, 'Location', 'southeast')
     hold off
     ax = gca;
-    set(ax,'Color','none')
-    set(ax,'FontSize',fontSize)
-    set(ax,'FontName',fontName)
-    set(ax,'Box','off')
-    set(ax,'XColor',axesColor)
-    set(ax,'YColor',axesColor)
+    set(ax, 'Color', 'none')
+    set(ax, 'FontSize', fontSize)
+    set(ax, 'FontName', fontName)
+    set(ax, 'Box', 'off')
+    set(ax, 'XColor', axesColor)
+    set(ax, 'YColor', axesColor)
     xlim(xAxisLimits)
     ylim(yAxisLimits)
 
     %% Saving
     if saving
-        figName = sprintf('5_10_um_profiles_separated-%s.svg',sampleName);
-        % saveas(gcf,fullfile(savingPath,figName))
-        exportgraphics(f,fullfile(savingPath,figName))
+        figName = sprintf('5_10_um_profiles_separated-%s.svg', sampleName);
+        % saveas(gcf, fullfile(savingPath, figName))
+        exportgraphics(f, fullfile(savingPath, figName))
         filename = sprintf('5_10_um_separated.mat');
-        save(fullfile(savingPath,filename),'mergedData')
+        save(fullfile(savingPath, filename), 'mergedData')
     end
 end

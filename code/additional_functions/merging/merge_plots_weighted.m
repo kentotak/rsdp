@@ -155,9 +155,10 @@ function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAx
 
     %% Saving
     if saving
-        figName = sprintf('[weighted][%s]5_10_um_profiles_separated-%s.svg',weightingType,data.sampleName);
-        % saveas(gcf,fullfile(savingPath,figName))
+        % Export figure
+        figName = sprintf('merged_data-weighted-%s-%s.svg',weightingType,data.sampleName);
         exportgraphics(f,fullfile(savingPath,figName))
+        % Save data
         filename = sprintf('merged_data-weighted-%s.mat', weightingType);
         save(fullfile(savingPath,filename),'mergedData')
     end
