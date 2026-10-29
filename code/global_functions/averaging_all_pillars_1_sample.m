@@ -1,4 +1,4 @@
-function averaging_1_pillar_multiple(samplePath, saving, scanDirection, xAxisData, xAxisLimits, yAxisLimits, individualPlotsOption, normalizedDepthLimits, fontName, fontSize)
+function averaging_all_pillars_1_sample(samplePath, saving, scanDirection, xAxisData, xAxisLimits, yAxisLimits, individualPlotsOption, normalizedDepthLimits, fontName, fontSize)
     % Apply averaging_1_pillar.m to the 5 and 10 µm pillar diameter folders for one sample.
     % Author: Kento Takahashi - KU Leuven
 

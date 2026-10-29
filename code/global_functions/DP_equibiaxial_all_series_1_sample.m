@@ -1,4 +1,4 @@
-function DP_equibiaxial_multiple(samplePath, stepSize, pillarRedFactor, elasticModulus, poissonRatio, saving, scanDirection, xAxisData, xAxisLimits, yAxisLimits, pointsSpan, polynomialDegree, normalizedDepthLimits, fontName, fontSize)
+function DP_equibiaxial_all_series_1_sample(samplePath, stepSize, pillarRedFactor, elasticModulus, poissonRatio, saving, scanDirection, xAxisData, xAxisLimits, yAxisLimits, pointsSpan, polynomialDegree, normalizedDepthLimits, fontName, fontSize)
     % Apply DP_equibiaxial.m to all series of pillar diameter 5 and 10 µm in samplePath.
     % Author: Kento Takahashi - KU Leuven
 
