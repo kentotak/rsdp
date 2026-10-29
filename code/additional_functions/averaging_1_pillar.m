@@ -1,41 +1,40 @@
-function averaging_1_pillar(path,scanDirection,saving,xAxisData,xAxisLimits,yAxisLimits,individualPlotsOption,normalizedDepthLimits,fontName,fontSize)
+function averaging_1_pillar(pillarPath, saving, scanDirection, xAxisData, xAxisLimits, yAxisLimits, individualPlotsOption, normalizedDepthLimits, fontName, fontSize)
     % This function averages the residual stress for multiple series of the same pillar diameter.
     % The standard deviation is also computed.
     % This code is meant to be used with rsdp.
-    % Author: Kento Takahashi
-    % Last edit: 12/10/2026 (added arguments definition)
+    % Author: Kento Takahashi -  KU Leuven
 
     arguments
-        path string {mustBeFolder}
-        scanDirection (1,1) double
+        pillarPath string {mustBeFolder}
         saving (1,1) logical = 0
+        scanDirection (1,1) double = 0
         xAxisData string = "normalizedDepth" % "normalizedDepth" or "depth"
-        xAxisLimits (1,2) double = [-inf inf]
-        yAxisLimits (1,2) double = [-inf inf]
+        xAxisLimits (1,2) double = [-inf inf] % [] or [µm]
+        yAxisLimits (1,2) double = [-inf inf] % [MPa]
         individualPlotsOption (1,1) logical = 0
-        normalizedDepthLimits (1,2) double = [0 .2]
+        normalizedDepthLimits (1,2) double = [.05 .2] % []
         fontName string = 'Arial'
         fontSize (1,1) double = 20
     end
 
     % Paths
-    allSeries = dir(path);
-    filepath = fullfile('results', 'depth_profiling', num2str(scanDirection), sprintf('residualStress-%d.mat',scanDirection));
+    allSeries = dir(pillarPath);
+    filepath = fullfile('results', 'depth_profiling', num2str(scanDirection), sprintf('residualStress-%d.mat', scanDirection));
     seriesDirectories = allSeries([allSeries.isdir] & ~ismember({allSeries.name}, {'.', '..', 'results'}));
     
     % Creating the directory for saving the plots
-    resultsDir = fullfile(path, 'results');
+    resultsDir = fullfile(pillarPath, 'results');
 
     if ~exist(resultsDir, 'dir')
         mkdir(resultsDir)
     end
 
     %% Import data
-    data.normalizedDepth = load(fullfile(path, seriesDirectories(1).name, filepath)).normalizedDepth(:);
-    data.depth = load(fullfile(path, seriesDirectories(1).name, filepath)).depth(:);
+    data.normalizedDepth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).normalizedDepth(:);
+    data.depth = load(fullfile(pillarPath, seriesDirectories(1).name, filepath)).depth(:);
     data.nbSeries = numel(seriesDirectories);
     for series = 1:data.nbSeries
-        data.residualStress(:,series) = load(fullfile(path, seriesDirectories(series).name, filepath)).stress(:);
+        data.residualStress(:, series) = load(fullfile(pillarPath, seriesDirectories(series).name, filepath)).stress(:);
     end
 
     %% Compute averaged stress and standard deviation
@@ -57,11 +56,11 @@ function averaging_1_pillar(path,scanDirection,saving,xAxisData,xAxisLimits,yAxi
     figure
     hold on
 
-    plot(data.(xAxisData),data.meanRS,'LineWidth',3) % Residual stress
+    plot(data.(xAxisData), data.meanRS, 'LineWidth', 3) % Residual stress
     fill(data.stdDevX, data.stdDevY, 'b', 'FaceAlpha', 0.2, 'EdgeColor', 'none') % Standard deviation
 
     if individualPlotsOption % Individual plots
-        plot(data.(xAxisData),data.residualStress(:,series))
+        plot(data.(xAxisData), data.residualStress(:, series))
     end
     
     hold off
@@ -92,6 +91,6 @@ function averaging_1_pillar(path,scanDirection,saving,xAxisData,xAxisLimits,yAxi
 
         % Data
         filename = 'meanRS.mat';
-        save(fullfile(resultsDir,filename),'data')
+        save(fullfile(resultsDir, filename), 'data')
     end
 end

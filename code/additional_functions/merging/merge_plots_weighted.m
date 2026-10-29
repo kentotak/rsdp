@@ -1,14 +1,12 @@
-function merge_plots_weighted(samplePath,weightingType,saving,savingPath,xAxisLimits,yAxisLimits,fontName,fontSize)
+function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAxisLimits, yAxisLimits, fontName, fontSize)
     % Plot 5 and 10 µm PD results on the same graph.
-    % A weighted average is calculated between 0.5 and 1 µm, either linear
-    % or adjusted to the influence function.
-    % Author: Kento Takahashi
-    % Date of last edit: 13/10/2026 (added arguments)
+    % A weighted average is calculated between 0.5 and 1 µm, either linear or adjusted to the influence function.
+    % Author: Kento Takahashi - KU Leuven
 
     arguments
         samplePath string {mustBeFolder}
         weightingType string = 'linear' % 'linear' or 'sensitivity'
-        saving logical = 0
+        saving (1,1) logical = 0
         savingPath string {mustBeFolder} = fullfile(samplePath, 'results')
         xAxisLimits (1,2) double = [-inf inf]
         yAxisLimits (1,2) double = [-inf inf]
@@ -32,17 +30,17 @@ function merge_plots_weighted(samplePath,weightingType,saving,savingPath,xAxisLi
         mkdir(savingPath)
     end
     
-    % See ../influence_function/get_parameters_influence_function.m for more details about the value of factors and pillarRedFactor.
-    if strcmp(weightingType,'sensitivity')
+    % See ..\additional_functions\influence_function\get_parameters_influence_function.m for more details about the value of factors and pillarRedFactor.
+    if strcmp(weightingType, 'sensitivity')
         factors = 1;
         pillarRedFactor = .8;
     end
 
     %% Import data
-    pillarsDirs = {fullfile(samplePath,'05um_pillar'),fullfile(samplePath,'10um_pillar')};
+    pillarsDirs = {fullfile(samplePath,'05um_pillar'), fullfile(samplePath,'10um_pillar')};
 
     for pillar = 1:length(pillarsDirs)
-        fileData = load(fullfile(pillarsDirs{pillar},filepath)).data;
+        fileData = load(fullfile(pillarsDirs{pillar}, filepath)).data;
         data.depth{pillar} = fileData.depth;
         depth = fileData.depth;
         data.stresses{pillar} = fileData.meanRS;
@@ -81,21 +79,21 @@ function merge_plots_weighted(samplePath,weightingType,saving,savingPath,xAxisLi
     % Compute weighted mean and std
     switch weightingType
         case "linear"
-            weights5 = linspace(1,0,size(depthsInterval5,1))';
-            weights10 = linspace(0,1,size(depthsInterval10,1))';
+            weights5 = linspace(1, 0, size(depthsInterval5,1))';
+            weights10 = linspace(0, 1, size(depthsInterval10,1))';
         case "sensitivity"
-            parametersInfluenceFunction = get_parameters_influence_function(factors,pillarRedFactor);
-            weights5 = compute_influence_function(factors,parametersInfluenceFunction,linspace(.1,.2,size(depthsInterval5,1)))';
-            weights10 = compute_influence_function(factors,parametersInfluenceFunction,linspace(.05,.1,size(depthsInterval10,1)))';
+            parametersInfluenceFunction = get_parameters_influence_function(factors, pillarRedFactor);
+            weights5 = compute_influence_function(factors, parametersInfluenceFunction, linspace(.1,.2,size(depthsInterval5,1)))';
+            weights10 = compute_influence_function(factors, parametersInfluenceFunction, linspace(.05,.1,size(depthsInterval10,1)))';
     end
-    weightedMeanStresses = mean([stressesInterval5 stressesInterval10],2,'omitmissing','Weights',[weights5 weights10]);
-    weightedStdStresses = mean([stdInterval5 stdInterval10],2,'omitmissing','Weights',[weights5 weights10]);
+    weightedMeanStresses = mean([stressesInterval5 stressesInterval10], 2, 'omitmissing', 'Weights', [weights5 weights10]);
+    weightedStdStresses = mean([stdInterval5 stdInterval10], 2, 'omitmissing', 'Weights', [weights5 weights10]);
     % (variance approach) weightedStdStresses = sqrt(weights5.*(stressesInterval5-weightedMeanStresses).^2+weights10.*(stressesInterval10-weightedMeanStresses).^2) 
 
     %% Plot data with weighted mean
     % Data preparation
     depths5 = depths5(~filter5);
-    depths5 = [depths5;depthsInterval5];
+    depths5 = [depths5; depthsInterval5];
     depths10(filter10) = NaN;
 
     stresses5 = stresses5(~filter5);
@@ -155,7 +153,7 @@ function merge_plots_weighted(samplePath,weightingType,saving,savingPath,xAxisLi
     stdDevY = [stresses5 + stdDev5; stresses10 + stdDev10; flipud(stresses10 - stdDev10); flipud(stresses5 - stdDev5)];
     mergedData = struct('depth',depth,'meanRS',meanRS,'stdDevX',stdDevX,'stdDevY',stdDevY);
 
-    % Saving
+    %% Saving
     if saving
         figName = sprintf('[weighted][%s]5_10_um_profiles_separated-%s.svg',weightingType,data.sampleName);
         % saveas(gcf,fullfile(savingPath,figName))
