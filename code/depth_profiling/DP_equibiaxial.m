@@ -2,19 +2,18 @@ function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillar
     % Depth profiling of residual stresses - Equibiaxial case.
     % This code is meant to be used with the Matlab application rsdp.
     % Authors: Kento Takahashi (KU Leuven, Belgium) and Enrico Salvati (University of Udine, Italy)
-    % Date of last change: 13/10/2026 (added arguments definition)
 
     arguments
         seriesPath string {mustBeFolder}
         strainFile string {mustBeFile}
-        pillarDiameter double {mustBeNonempty}
-        stepSize double {mustBeNonempty}
-        pillarRedFactor double {mustBeNonempty}
-        elasticModulus double {mustBeNonempty}
-        poissonRatio double {mustBeNonempty}
+        pillarDiameter (1,1) double
+        stepSize (1,1) double
+        pillarRedFactor (1,1) double
+        elasticModulus (1,1) double
+        poissonRatio (1,1) double
         saving (1,1) logical = 0
         seriesName string = ''
-        scanDirection double = 0
+        scanDirection (1,1) double = 0
         xAxisData string = "normalizedDepth"
         xAxisLimits (1,2) double = [-inf inf]
         yAxisLimits (1,2) double = [-inf inf]
