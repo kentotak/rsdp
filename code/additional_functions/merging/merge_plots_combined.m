@@ -1,13 +1,12 @@
-function merge_plots_combined(path,saving,xAxisLimits,yAxisLimits,fontName,fontSize)
+function merge_plots_combined(samplePath, saving, xAxisLimits, yAxisLimits, fontName, fontSize)
     % Combines data of multiple pillar diameters.
     % Author: Kento Takahashi
-    % Date: 13/10/2026 (removed eval functions and put data in structure arrays instead)
     
     arguments
-        path string {mustBeFolder}
+        samplePath string {mustBeFolder}
         saving (1,1) logical = 0
-        xAxisLimits (1,2) double = [-inf inf]
-        yAxisLimits (1,2) double = [-inf inf]
+        xAxisLimits (1,2) double = [-inf inf] % [] or [µm]
+        yAxisLimits (1,2) double = [-inf inf] % [MPa]
         fontName string = 'Arial'
         fontSize (1,1) double = 20
     end
@@ -16,39 +15,39 @@ function merge_plots_combined(path,saving,xAxisLimits,yAxisLimits,fontName,fontS
     plotColor = '#489fb5';
     
     %% Paths
-    [functionPath,~] = fileparts(mfilename("fullpath"));
+    [functionPath, ~] = fileparts(mfilename("fullpath"));
     addpath(functionPath)
 
     filepath = fullfile('results', 'meanRS.mat');
-    [~, sampleName] = fileparts(path);
+    [~, sampleName] = fileparts(samplePath);
 
-    resultsDir = fullfile(path, 'results'); 
+    resultsDir = fullfile(samplePath, 'results'); 
 
     if ~exist(resultsDir, 'dir')
         mkdir(resultsDir)
     end
 
-    cd(path)
-
     %% Import data
-    pillarsDirs = selectMultipleFolders();
+    % addpath(fullfile('..', '..', 'utility_functions'))
+    % pillarsDirs = select_multiple_folders();
+    pillarsDirs = {fullfile(samplePath, '05um_pillar'), fullfile(samplePath, '10um_pillar')};
+    pillarDiameters = [5, 10];
 
     data = struct;
 
     for pillar = 1:length(pillarsDirs)
-        % Extract pillar diameter from first 2 characters of folder name
-        [~,data(pillar).pillarDiameter] = fileparts(pillarsDirs{pillar});
-        data(pillar).pillarDiameter = str2double(data(pillar).pillarDiameter(1:2));
+        % % Extract pillar diameter from first 2 characters of folder name
+        % [~, data(pillar).pillarDiameter] = fileparts(pillarsDirs{pillar});
+        % data(pillar).pillarDiameter = str2double(data(pillar).pillarDiameter(1:2));
+        data(pillar).pillarDiameter = pillarDiameters(pillar);
 
-        data(pillar).fileData = load(fullfile(pillarsDirs{pillar},filepath));
+        data(pillar).fileData = load(fullfile(pillarsDirs{pillar}, filepath)).data;
         data(pillar).depth = data(pillar).fileData.depth;
         data(pillar).stress = data(pillar).fileData.meanRS;
         data(pillar).variance = data(pillar).fileData.variance;
     end
     
     %% Interpolate stresses and standard deviations
-    mergedData = struct;
-
     mergedData.depth = vertcat(data.depth);
     mergedData.uniqueDepths = unique(mergedData.depth);
 
@@ -57,13 +56,13 @@ function merge_plots_combined(path,saving,xAxisLimits,yAxisLimits,fontName,fontS
     for pillar = 1:length(pillarsDirs)
         % Filter in depth interval
         maxDepth = max(data(pillar).depth);
-        interpolatedDepth = mergedData.uniqueDepths(mergedData.uniqueDepths<=maxDepth);
-        otherValues = nan(size(mergedData.uniqueDepths(mergedData.uniqueDepths>maxDepth)));
+        interpolatedDepth = mergedData.uniqueDepths(mergedData.uniqueDepths <= maxDepth);
+        otherValues = nan(size(mergedData.uniqueDepths(mergedData.uniqueDepths > maxDepth)));
 
-        interpolatedStress = interp1(data(pillar).depth,data(pillar).stress,interpolatedDepth);
+        interpolatedStress = interp1(data(pillar).depth, data(pillar).stress, interpolatedDepth);
         pillarData(pillar).stress = [interpolatedStress; otherValues];
 
-        interpolatedVariance = interp1(data(pillar).depth,data(pillar).variance,interpolatedDepth);
+        interpolatedVariance = interp1(data(pillar).depth, data(pillar).variance, interpolatedDepth);
         pillarData(pillar).variance = [interpolatedVariance; otherValues];
     end
 
@@ -81,18 +80,19 @@ function merge_plots_combined(path,saving,xAxisLimits,yAxisLimits,fontName,fontS
 
     hold on
     scatter(mergedData.uniqueDepths, mergedData.meanRS, 20, 'filled', 'MarkerFaceColor', plotColor)
-    fill(mergedData.stdDevX, mergedData.stdDevY, '', 'MarkerFaceColor', plotColor, 'FaceAlpha', 0.2, 'EdgeColor', 'none')
-    yline(0,'k--') % vertical line at 0
+    fill(mergedData.stdDevX, mergedData.stdDevY, '', 'FaceColor', plotColor, 'FaceAlpha', 0.2, 'EdgeColor', 'none')
+    yline(0, 'k--') % vertical line at 0
     hold off
     
     % Plot appearance
-    % set(gcf,'WindowState','maximized')
-    % set(gcf,'InnerPosition',[0 0 1 1])
-    % set(gcf,'Menu','none','ToolBar','none')
+    % set(gcf, 'WindowState', 'maximized')
+    % set(gcf, 'InnerPosition', [0 0 1 1])
+    % set(gcf, 'Menu', 'none', 'ToolBar', 'none')
 
     set(gca, 'FontSize', fontSize)
     set(gca, 'FontName', fontName)
     set(gca, 'Color', 'none');
+    box off
 
     xlim(xAxisLimits)
     ylim(yAxisLimits)
@@ -100,11 +100,11 @@ function merge_plots_combined(path,saving,xAxisLimits,yAxisLimits,fontName,fontS
     xlabel('Depth (µm)')
     ylabel('Residual Stress [MPa]')
     % title(sprintf('Curves strung together for sample %s', sampleName))
-    legend({'Averaged stress','Standard deviation'},'Location','best')
+    legend({'Averaged stress', 'Standard deviation'}, 'Location', 'best')
 
     if saving
-        saveas(gcf, fullfile(resultsDir, sprintf('%s-merged_plots-combined.jpg',sampleName)))
+        saveas(gcf, fullfile(resultsDir, sprintf('%s-merged_plots-combined.png', sampleName)))
         filename = 'merged_data-combined.mat';
-        save(fullfile(resultsDir,filename),'mergedData')
+        save(fullfile(resultsDir, filename), 'mergedData')
     end
 end
