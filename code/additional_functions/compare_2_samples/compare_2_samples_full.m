@@ -11,8 +11,8 @@ function compare_2_samples_full(sample1Path,sample2Path,mergeMode,weighting,plot
         weighting logical = 1
         plot1Name string = 'Plot 1'
         plot2Name string = 'Plot 2'
-        xAxisLimits (1,2) double = [-inf inf]
-        yAxisLimits (1,2) double = [-inf inf]
+        xAxisLimits (1,2) double = [-inf inf] % [] or [µm]
+        yAxisLimits (1,2) double = [-inf inf] % [MPa]
         saving (1,1) logical = 0
         savingPath string = mfilename("fullpath")
         savingFilename string = 'comparison-plot1-plot2.jpg'
