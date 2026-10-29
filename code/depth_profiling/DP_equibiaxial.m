@@ -1,11 +1,11 @@
-function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,elasticModulus,poissonRatio,saving,seriesName,scanDirection,xAxisData,xAxisLimits,yAxisLimits,pointsSpan,polynomialDegree,normalizedDepthLimits,fontName,fontSize)
+function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillarRedFactor, elasticModulus, poissonRatio, saving, seriesName, scanDirection, xAxisData, xAxisLimits, yAxisLimits, pointsSpan, polynomialDegree, normalizedDepthLimits, fontName, fontSize)
     % Depth profiling of residual stresses - Equibiaxial case.
     % This code is meant to be used with the Matlab application rsdp.
     % Authors: Kento Takahashi (KU Leuven, Belgium) and Enrico Salvati (University of Udine, Italy)
     % Date of last change: 13/10/2026 (added arguments definition)
 
     arguments
-        path string {mustBeFolder}
+        seriesPath string {mustBeFolder}
         strainFile string {mustBeFile}
         pillarDiameter double {mustBeNonempty}
         stepSize double {mustBeNonempty}
@@ -31,7 +31,7 @@ function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,
 
     %% Paths
     if saving
-        resultsDir = fullfile(path, 'results', 'depth_profiling', num2str(scanDirection));
+        resultsDir = fullfile(seriesPath, 'results', 'depth_profiling', num2str(scanDirection));
         if ~exist(resultsDir, 'dir')
             mkdir(resultsDir)
         end
@@ -41,7 +41,7 @@ function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,
     if isfile(strainFile)
         strainMatrix = load(strainFile);
     else
-        msgbox(sprintf('Strain file %s not found.',strainFile))
+        msgbox(sprintf('Strain file %s not found.', strainFile))
         return
     end
 
@@ -57,7 +57,7 @@ function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,
     
     %% Influence factors
     factors = 1; % 1 = unpublished code, 2 = generalised... code, 3 = nanoscale... paper
-    parametersInfluenceFunction = get_parameters_influence_function(factors,pillarRedFactor);
+    parametersInfluenceFunction = get_parameters_influence_function(factors, pillarRedFactor);
     
     %% Calculation of parameters (eigenstrain, h/D differences, ...)
     % Data regularization
@@ -65,7 +65,7 @@ function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,
     normalizedDepth = normalizedDepth';
     
     % Calculation of eps
-    SRCurveSmoothed = smooth(normalizedDepth,strainRelief,pointsSpan,'sgolay',polynomialDegree); % This smoothes every 6 (pointsSpan) values with a 3rd degree (polynomialDegree) polynomial
+    SRCurveSmoothed = smooth(normalizedDepth, strainRelief, pointsSpan, 'sgolay', polynomialDegree); % This smoothes every 6 (pointsSpan) values with a 3rd degree (polynomialDegree) polynomial
     
     % h/D shift and delta calculation
     midNormalizedDepth = nan(1,length(normalizedDepth)-1);
@@ -77,7 +77,7 @@ function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,
     end
 
     % Delta eps calculation
-    deltaSRCurveSmoothed = nan(1,length(SRCurveSmoothed)-1);
+    deltaSRCurveSmoothed = nan(1, length(SRCurveSmoothed)-1);
     
     for i = 1:(length(SRCurveSmoothed)-1)
         deltaSRCurveSmoothed(i) = SRCurveSmoothed(i+1) - SRCurveSmoothed(i);
@@ -172,7 +172,7 @@ function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,
     box off
     set(gca, 'Color', 'none')
 
-    set(gca,'FontSize',fontSize)
+    set(gca, 'FontSize', fontSize)
     set(gca, 'FontName', fontName)
 
     if saving
@@ -214,7 +214,7 @@ function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,
     deltaStress = (upperStress - lowerStress)./2;
     
     %% Residual Stress Plots
-    figure('Name',seriesName)
+    figure('Name', seriesName)
     % set(gcf,'WindowState','maximized')
     
     % hold on
@@ -246,7 +246,7 @@ function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,
 
     ylabel('Residual Stress [MPa]')
 
-    set(gca,'FontSize',fontSize)
+    set(gca, 'FontSize', fontSize)
     set(gca, 'FontName', fontName)
 
     set(gca, 'Color', 'none')
@@ -262,6 +262,6 @@ function DP_equibiaxial(path,strainFile,pillarDiameter,stepSize,pillarRedFactor,
         filename = sprintf('residualStress-%d.mat', scanDirection);
         normalizedDepth = normalizedDepthLinspace;
         depth = normalizedDepth * pillarDiameter;
-        save(fullfile(resultsDir,filename),'normalizedDepth','depth','stress','pillarDiameter','strain','meanStress','eps','Gtemp','Ftemp')
+        save(fullfile(resultsDir, filename), 'normalizedDepth', 'depth', 'stress', 'pillarDiameter', 'strain', 'meanStress', 'eps', 'Gtemp', 'Ftemp')
     end
 end
