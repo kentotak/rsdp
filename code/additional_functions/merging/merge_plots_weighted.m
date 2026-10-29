@@ -8,8 +8,8 @@ function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAx
         weightingType string = 'linear' % 'linear' or 'sensitivity'
         saving (1,1) logical = 0
         savingPath string {mustBeFolder} = fullfile(samplePath, 'results')
-        xAxisLimits (1,2) double = [-inf inf]
-        yAxisLimits (1,2) double = [-inf inf]
+        xAxisLimits (1,2) double = [-inf inf] % [] or [µm]
+        yAxisLimits (1,2) double = [-inf inf] % [MPa]
         fontName string = 'Arial'
         fontSize (1,1) double = 20
     end
