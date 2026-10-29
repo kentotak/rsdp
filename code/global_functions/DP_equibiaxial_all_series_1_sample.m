@@ -4,18 +4,18 @@ function DP_equibiaxial_all_series_1_sample(samplePath, stepSize, pillarRedFacto
 
     arguments
         samplePath string {mustBeFolder}
-        stepSize double
+        stepSize double % [µm]
         pillarRedFactor (1,1) double
-        elasticModulus (1,1) double
-        poissonRatio (1,1) double
+        elasticModulus (1,1) double % [MPa]
+        poissonRatio (1,1) double % []
         saving (1,1) logical = 0
-        scanDirection (1,1) double = 0
-        xAxisData string = "normalizedDepth"
-        xAxisLimits (1,2) double = [-inf inf]
-        yAxisLimits (1,2) double = [-inf inf]
+        scanDirection (1,1) double = 0 % 0, 45 or 90
+        xAxisData string = "normalizedDepth" % 'normalizedDepth' or 'depth'
+        xAxisLimits (1,2) double = [-inf inf] % [] or [µm]
+        yAxisLimits (1,2) double = [-inf inf] % [MPa]
         pointsSpan (1,1) double = 6
         polynomialDegree (1,1) double = 3
-        normalizedDepthLimits (1,2) double = [.05 .2]
+        normalizedDepthLimits (1,2) double = [.05 .2] % []
         fontName string = 'Arial'
         fontSize (1,1) double = 20
     end
