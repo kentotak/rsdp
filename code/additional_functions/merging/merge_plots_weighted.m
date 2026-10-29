@@ -37,7 +37,7 @@ function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAx
     end
 
     %% Import data
-    pillarsDirs = {fullfile(samplePath,'05um_pillar'), fullfile(samplePath,'10um_pillar')};
+    pillarsDirs = {fullfile(samplePath, '05um_pillar'), fullfile(samplePath, '10um_pillar')};
 
     for pillar = 1:length(pillarsDirs)
         fileData = load(fullfile(pillarsDirs{pillar}, filepath)).data;
@@ -83,8 +83,8 @@ function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAx
             weights10 = linspace(0, 1, size(depthsInterval10,1))';
         case "sensitivity"
             parametersInfluenceFunction = get_parameters_influence_function(factors, pillarRedFactor);
-            weights5 = compute_influence_function(factors, parametersInfluenceFunction, linspace(.1,.2,size(depthsInterval5,1)))';
-            weights10 = compute_influence_function(factors, parametersInfluenceFunction, linspace(.05,.1,size(depthsInterval10,1)))';
+            weights5 = compute_influence_function(factors, parametersInfluenceFunction, linspace(.1, .2, size(depthsInterval5, 1)))';
+            weights10 = compute_influence_function(factors, parametersInfluenceFunction, linspace(.05, .1, size(depthsInterval10, 1)))';
     end
     weightedMeanStresses = mean([stressesInterval5 stressesInterval10], 2, 'omitmissing', 'Weights', [weights5 weights10]);
     weightedStdStresses = mean([stdInterval5 stdInterval10], 2, 'omitmissing', 'Weights', [weights5 weights10]);
@@ -151,42 +151,42 @@ function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAx
     meanRS = [stresses5; stresses10];
     stdDevX = [depths5; depths10; flipud(depths10); flipud(depths5)];
     stdDevY = [stresses5 + stdDev5; stresses10 + stdDev10; flipud(stresses10 - stdDev10); flipud(stresses5 - stdDev5)];
-    mergedData = struct('depth',depth,'meanRS',meanRS,'stdDevX',stdDevX,'stdDevY',stdDevY);
+    mergedData = struct('depth', depth, 'meanRS', meanRS, 'stdDevX', stdDevX, 'stdDevY', stdDevY);
 
     %% Saving
     if saving
         % Export figure
-        figName = sprintf('merged_data-weighted-%s-%s.svg',weightingType,data.sampleName);
-        exportgraphics(f,fullfile(savingPath,figName))
+        figName = sprintf('merged_data-weighted-%s-%s.svg', weightingType, data.sampleName);
+        exportgraphics(f, fullfile(savingPath, figName))
         % Save data
         filename = sprintf('merged_data-weighted-%s.mat', weightingType);
-        save(fullfile(savingPath,filename),'mergedData')
+        save(fullfile(savingPath, filename), 'mergedData')
     end
 
     %% Show sensitivity function for 5 and 10 µm between 0.5 and 1 µm
-    if strcmp(weightingType,'sensitivity')
+    if strcmp(weightingType, 'sensitivity')
         % Calculate sensitivity function
-        normalizedDepth5 = linspace(.1,.2,125);
-        normalizedDepth10 = linspace(.05,.1,125);
-        influenceFunction5 = compute_influence_function(factors,parametersInfluenceFunction,normalizedDepth5);
-        influenceFunction10 = compute_influence_function(factors,parametersInfluenceFunction,normalizedDepth10);
+        normalizedDepth5 = linspace(.1, .2, 125);
+        normalizedDepth10 = linspace(.05, .1, 125);
+        influenceFunction5 = compute_influence_function(factors, parametersInfluenceFunction, normalizedDepth5);
+        influenceFunction10 = compute_influence_function(factors, parametersInfluenceFunction, normalizedDepth10);
 
         % Plot
-        depth = linspace(.5,1,125);
+        depth = linspace(.5, 1, 125);
 
         figure
         hold on
-        scatter(depth,influenceFunction5)
-        scatter(depth,influenceFunction10)
+        scatter(depth, influenceFunction5)
+        scatter(depth, influenceFunction10)
         hold off
         
         xlabel('Depth (µm)')
         ylabel('Influence Function')
         title('Influence Function vs Depth')
         grid on
-        set(gca,"FontSize",fontSize)
-        set(gca,"FontName",fontName);
-        set(gca,"Color","none")
-        legend("5 µm","10 µm",'Location','southeast')
+        set(gca, "FontSize", fontSize)
+        set(gca, "FontName", fontName);
+        set(gca, "Color", "none")
+        legend("5 µm", "10 µm", 'Location', 'southeast')
     end
 end
