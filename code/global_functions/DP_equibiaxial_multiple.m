@@ -15,7 +15,7 @@ function DP_equibiaxial_multiple(samplePath, stepSize, pillarRedFactor, elasticM
         yAxisLimits (1,2) double = [-inf inf]
         pointsSpan (1,1) double = 6
         polynomialDegree (1,1) double = 3
-        normalizedDepthLimits (1,2) double = [.06 .2]
+        normalizedDepthLimits (1,2) double = [.05 .2]
         fontName string = 'Arial'
         fontSize (1,1) double = 20
     end
