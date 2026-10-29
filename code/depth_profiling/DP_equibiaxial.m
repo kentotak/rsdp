@@ -6,20 +6,20 @@ function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillar
     arguments
         seriesPath string {mustBeFolder}
         strainFile string {mustBeFile}
-        pillarDiameter (1,1) double
-        stepSize (1,1) double
+        pillarDiameter (1,1) double % [µm]
+        stepSize (1,1) double % [µm]
         pillarRedFactor (1,1) double
-        elasticModulus (1,1) double
-        poissonRatio (1,1) double
+        elasticModulus (1,1) double % [MPa]
+        poissonRatio (1,1) double % []
         saving (1,1) logical = 0
         seriesName string = ''
         scanDirection (1,1) double = 0
-        xAxisData string = "normalizedDepth"
-        xAxisLimits (1,2) double = [-inf inf]
-        yAxisLimits (1,2) double = [-inf inf]
-        pointsSpan (1,1) double= 6
+        xAxisData string = "normalizedDepth" % 'normalizedDepth' or 'depth'
+        xAxisLimits (1,2) double = [-inf inf] % [] or [µm]
+        yAxisLimits (1,2) double = [-inf inf] % [MPa]
+        pointsSpan (1,1) double = 6
         polynomialDegree (1,1) double = 3
-        normalizedDepthLimits (1,2) double = [.05 .2]
+        normalizedDepthLimits (1,2) double = [.05 .2] % []
         fontName string = 'Arial'
         fontSize (1,1) double = 20
     end
@@ -145,7 +145,6 @@ function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillar
     
     % close % linfitxy opens a figure by default
     
-    
     %% Plot smoothed strain relief
     figure
     hold on
@@ -164,20 +163,20 @@ function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillar
     hold off
 
     % Plot details
-    legend('Original Data', 'Smoothed Data', 'Location', 'best')
-    % title('Strain relief profile')
-
     ylabel('Strain Relief')
     ylim([min(strainRelief)-5e-4 max(strainRelief)+5e-4])
 
-    box off
-    set(gca, 'Color', 'none')
+    legend('Original Data', 'Smoothed Data', 'Location', 'best')
+    % title('Strain relief profile')
 
     set(gca, 'FontSize', fontSize)
     set(gca, 'FontName', fontName)
+    set(gca, 'Color', 'none')
+    box off
 
     if saving
-        filename = sprintf('strain_relief_profile-%d.jpg', scanDirection);
+        % Graph as image
+        filename = sprintf('strain_relief_profile-%d.png', scanDirection);
         saveas(gcf, fullfile(resultsDir, filename));
     end
     
@@ -188,7 +187,7 @@ function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillar
             lowerStrain(i) = nan;
         end
         % Only keeping values if h/D in interval
-        if (midNormalizedDepth(i)<min(normalizedDepth))||(midNormalizedDepth(i)>max(normalizedDepth))||midNormalizedDepth(i) == 0||depthShift(i) == 0
+        if (midNormalizedDepth(i)<min(normalizedDepth)) || (midNormalizedDepth(i)>max(normalizedDepth)) || midNormalizedDepth(i) == 0 || depthShift(i) == 0
             midNormalizedDepth(i) = nan;
             depthShift(i) = nan;
             eps(i) = nan;
@@ -201,67 +200,58 @@ function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillar
     % (assuming elastic isotropy!)
     normalizedDepthLinspace = linspace(normalizedDepthLimits(1), normalizedDepthLimits(2), 500);
     
-    [midNormalizedDepthWithoutNaN, epsWithoutNaN, upperStrainWithoutNaN, lowerStrainWithoutNaN] = remove_nan_columns(midNormalizedDepth, eps, upperStrain, lowerStrain);
+    [midNormalizedDepthWithoutNaN, epsWithoutNaN, ~, ~] = remove_nan_columns(midNormalizedDepth, eps, upperStrain, lowerStrain);
     
     strain = interp1(midNormalizedDepthWithoutNaN, epsWithoutNaN, normalizedDepthLinspace, 'linear');
-    upperStrain = interp1(midNormalizedDepthWithoutNaN, upperStrainWithoutNaN, normalizedDepthLinspace, 'linear');
-    lowerStrain = interp1(midNormalizedDepthWithoutNaN, lowerStrainWithoutNaN, normalizedDepthLinspace, 'linear');
+    % upperStrain = interp1(midNormalizedDepthWithoutNaN, upperStrainWithoutNaN, normalizedDepthLinspace, 'linear');
+    % lowerStrain = interp1(midNormalizedDepthWithoutNaN, lowerStrainWithoutNaN, normalizedDepthLinspace, 'linear');
     
-    % Stress computation
-    stress = (elasticModulus*1000.*strain)./(1-poissonRatio);
-    upperStress = (elasticModulus*1000.*upperStrain)./(1-poissonRatio);
-    lowerStress = (elasticModulus*1000.*lowerStrain)./(1-poissonRatio);
-    deltaStress = (upperStress - lowerStress)./2;
+    % Residual stress computation
+    residualStress = (elasticModulus*1000.*strain)./(1-poissonRatio);
+    % upperStress = (elasticModulus*1000.*upperStrain)./(1-poissonRatio);
+    % lowerStress = (elasticModulus*1000.*lowerStrain)./(1-poissonRatio);
+    % deltaStress = (upperStress - lowerStress)./2;
+
+    % % Error calculation
+    % squaredError = deltaStress.^2;
+    % elements = length(errorStrain) - sum(isnan(squaredError));
+    % errorStress = sqrt(sum(squaredError, 2))./elements; % This might sometimes be s_error = sqrt(nansum(squared_error))./elements;
+    % maxErrorStress = data.residualStress + errorStress;
+    % minErrorStress = data.residualStress - errorStress;
     
     %% Residual Stress Plots
     figure('Name', seriesName)
     % set(gcf,'WindowState','maximized')
-    
-    % hold on
-    % yline(0,'k--')
 
-    % Calculation
-    meanStress = (elasticModulus*1000.*strain)./(1-poissonRatio);
-    squaredError = deltaStress.^2;
-    elements = length(errorStrain) - sum(isnan(squaredError));
-    errorStress = sqrt(sum(squaredError, 2))./elements; % This might sometimes be s_error = sqrt(nansum(squared_error))./elements;
-    maxErrorStress = meanStress + errorStress;
-    minErrorStress = meanStress - errorStress;
+    % yline(0,'k--') % Horizontal line at 0
     
     %% Plot
     switch xAxisData
         case 'depth'
-            scatter(normalizedDepthLinspace*pillarDiameter, meanStress, 20, 'filled', 'MarkerFaceColor', plot1Color);
+            scatter(normalizedDepthLinspace*pillarDiameter, residualStress, 20, 'filled', 'MarkerFaceColor', plot1Color);
             xlabel('Depth [µm]')
         case 'normalizedDepth'
-            scatter(normalizedDepthLinspace, meanStress, 20, 'filled', 'MarkerFaceColor', plot1Color);
+            scatter(normalizedDepthLinspace, residualStress, 20, 'filled', 'MarkerFaceColor', plot1Color);
             xlabel('Normalized depth (h/D)')
     end
     
     % Plot details
+    ylabel('Residual Stress [MPa]')
     xlim(xAxisLimits)
     ylim(yAxisLimits)
-    
-    % title('Residual stress depth profile.')
-
-    ylabel('Residual Stress [MPa]')
 
     set(gca, 'FontSize', fontSize)
     set(gca, 'FontName', fontName)
-
     set(gca, 'Color', 'none')
+
     box off
     
-    if saving == true
-        saveas(gcf, fullfile(resultsDir, sprintf('RS_profile-%d.jpg', scanDirection)));
-    end
-    
-    hold off
-    
     if saving
+        % Graph as image
+        saveas(gcf, fullfile(resultsDir, sprintf('RS_profile-%d.png', scanDirection)));
+        % Data
         filename = sprintf('residualStress-%d.mat', scanDirection);
-        normalizedDepth = normalizedDepthLinspace;
-        depth = normalizedDepth * pillarDiameter;
-        save(fullfile(resultsDir, filename), 'normalizedDepth', 'depth', 'stress', 'pillarDiameter', 'strain', 'meanStress', 'eps', 'Gtemp', 'Ftemp')
+        data = struct('normalizedDepth', normalizedDepthLinspace, 'depth', normalizedDepthLinspace*pillarDiameter, 'residualStress', residualStress, 'pillarDiameter', pillarDiameter, 'strain', strain, 'eps', eps, 'Gtemp', Gtemp, 'Ftemp', Ftemp);
+        save(fullfile(resultsDir, filename), 'data')
     end
 end
