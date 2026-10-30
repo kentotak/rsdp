@@ -2,10 +2,9 @@ function pretreatment_FIB_images(fijiPath,seriesPath,scanDirection,saving,imgFor
     % This function applies a series of filters on a stack of images.
     % Written for rsdp.
     % Author: Kento Takahashi -  KU Leuven
-    % Date of last change: 23/10/2026 (minor changes)
     
     try
-        run(fullfile(fijiPath,'scripts','Miji.m'))
+        run(fullfile(fijiPath, 'scripts', 'Miji.m'))
     catch
         return
     end

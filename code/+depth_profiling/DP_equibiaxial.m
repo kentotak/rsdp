@@ -56,8 +56,9 @@ function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillar
     
     %% Influence factors
     factors = 1; % 1 = unpublished code, 2 = generalised... code, 3 = nanoscale... paper
-    addpath(fullfile('..', 'additional_functions', 'influence_function'))
-    parametersInfluenceFunction = get_parameters_influence_function(factors, pillarRedFactor);
+    [scriptPath, ~] = fileparts(mfilename('fullpath'));
+    addpath(fullfile(scriptPath,'..'))
+    parametersInfluenceFunction = additional_functions.influence_function.get_parameters_influence_function(factors, pillarRedFactor);
     
     %% Calculation of parameters (eigenstrain, h/D differences, ...)
     % Data regularization
@@ -130,8 +131,7 @@ function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillar
         reducedErrorNormalizedDepth = [uncertaintyNormalizedDepth(i)  uncertaintyNormalizedDepth(i+1)];
     
         % Linear fit between 2 points with errors on normalized depth and strain
-        addpath(fullfile('..', 'utility_functions'))
-        [~, sp, lower, upper, xplot] = linfitxy(reducedNormalizedDepth, reducedEps, reducedErrorNormalizedDepth, reducedErrorStrain, 'Verbosity', 0);
+        [~, sp, lower, upper, xplot] = utility_functions.linfitxy(reducedNormalizedDepth, reducedEps, reducedErrorNormalizedDepth, reducedErrorStrain, 'Verbosity', 0);
     
         lower_bandc(i,:) = lower;
         upper_bandc(i,:) = upper;
@@ -200,7 +200,7 @@ function DP_equibiaxial(seriesPath, strainFile, pillarDiameter, stepSize, pillar
     % (assuming elastic isotropy!)
     normalizedDepthLinspace = linspace(normalizedDepthLimits(1), normalizedDepthLimits(2), 500);
     
-    [midNormalizedDepthWithoutNaN, epsWithoutNaN, ~, ~] = remove_nan_columns(midNormalizedDepth, eps, upperStrain, lowerStrain);
+    [midNormalizedDepthWithoutNaN, epsWithoutNaN, ~, ~] = utility_functions.remove_nan_columns(midNormalizedDepth, eps, upperStrain, lowerStrain);
     
     strain = interp1(midNormalizedDepthWithoutNaN, epsWithoutNaN, normalizedDepthLinspace, 'linear');
     % upperStrain = interp1(midNormalizedDepthWithoutNaN, upperStrainWithoutNaN, normalizedDepthLinspace, 'linear');

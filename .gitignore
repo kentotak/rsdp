@@ -1,7 +1,2 @@
 *.asv
-code/new_functions/plot_everything.m
-code/new_functions/plot_everything2.m
-code/new_functions/compareEverything.m
-code/global_functions/compareEverything.m
-code/global_functions/plot_everything.m
-code/global_functions/plot_everything2.m
+code\+image_analysis\FijiPath.mat

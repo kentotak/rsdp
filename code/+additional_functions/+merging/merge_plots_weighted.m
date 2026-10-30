@@ -18,9 +18,9 @@ function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAx
     plotColor = '#489fb5';
     axesColor = 'black';
 
-    % Importing other functions
-    [functionPath,~] = fileparts(mfilename("fullpath"));
-    addpath(functionPath)
+    % Adding path to rsdp
+    [scriptPath,~] = fileparts(mfilename("fullpath"));
+    addpath(fullfile(scriptPath, '..', '..'))
 
     % Automatically detect sample name
     filepath = fullfile('results', 'meanRS.mat');
@@ -30,7 +30,7 @@ function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAx
         mkdir(savingPath)
     end
     
-    % See ..\additional_functions\influence_function\get_parameters_influence_function.m for more details about the value of factors and pillarRedFactor.
+    % See rsdp\code\+additional_functions\+influence_function\get_parameters_influence_function.m for more details about the value of factors and pillarRedFactor.
     if strcmp(weightingType, 'sensitivity')
         factors = 1;
         pillarRedFactor = .8;
@@ -82,9 +82,9 @@ function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAx
             weights5 = linspace(1, 0, size(depthsInterval5,1))';
             weights10 = linspace(0, 1, size(depthsInterval10,1))';
         case "sensitivity"
-            parametersInfluenceFunction = get_parameters_influence_function(factors, pillarRedFactor);
-            weights5 = compute_influence_function(factors, parametersInfluenceFunction, linspace(.1, .2, size(depthsInterval5, 1)))';
-            weights10 = compute_influence_function(factors, parametersInfluenceFunction, linspace(.05, .1, size(depthsInterval10, 1)))';
+            parametersInfluenceFunction = additional_functions.influence_function.get_parameters_influence_function(factors, pillarRedFactor);
+            weights5 = additional_functions.influence_function.compute_influence_function(factors, parametersInfluenceFunction, linspace(.1, .2, size(depthsInterval5, 1)))';
+            weights10 = additional_functions.influence_function.compute_influence_function(factors, parametersInfluenceFunction, linspace(.05, .1, size(depthsInterval10, 1)))';
     end
     weightedMeanStresses = mean([stressesInterval5 stressesInterval10], 2, 'omitmissing', 'Weights', [weights5 weights10]);
     weightedStdStresses = mean([stdInterval5 stdInterval10], 2, 'omitmissing', 'Weights', [weights5 weights10]);
@@ -168,8 +168,8 @@ function merge_plots_weighted(samplePath, weightingType, saving, savingPath, xAx
         % Calculate sensitivity function
         normalizedDepth5 = linspace(.1, .2, 125);
         normalizedDepth10 = linspace(.05, .1, 125);
-        influenceFunction5 = compute_influence_function(factors, parametersInfluenceFunction, normalizedDepth5);
-        influenceFunction10 = compute_influence_function(factors, parametersInfluenceFunction, normalizedDepth10);
+        influenceFunction5 = additional_functions.influence_function.compute_influence_function(factors, parametersInfluenceFunction, normalizedDepth5);
+        influenceFunction10 = additional_functions.influence_function.compute_influence_function(factors, parametersInfluenceFunction, normalizedDepth10);
 
         % Plot
         depth = linspace(.5, 1, 125);
