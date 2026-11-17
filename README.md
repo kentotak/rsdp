@@ -22,7 +22,7 @@ The installation file can be found at `/code/release/rsdp.mltbx`. Simply double-
 ## Usage
 To start the application, type `rsdp` in the command window.
 
-See [[documentation/Introduction]] for more instructions on how to use `rsdp`.
+See the documentation for more instructions on how to use `rsdp`.
 ## Contributing
 Pull requests are welcome, as long as I am working on this topic. For major changes, please open an issue first.
 ## License
