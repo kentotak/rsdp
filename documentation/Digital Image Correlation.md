@@ -10,25 +10,31 @@ Those steps were kept here, with less prompts for the user. For example, the fil
     </figure>
     <table>
 		<td>
-			<figure>
-				<img src="./images/file_list/file_list_parameters-02.png">
-				<figcaption><i>File list parameters</i></figcaption>
-			</figure>
+			<center>
+				<figure>
+					<img src="./images/file_list/file_list_parameters-02.png">
+					<figcaption><i>File list parameters</i></figcaption>
+				</figure>
+			</center>
 		</td>
 		<td>
-			<figure>
-				<img src="./images/parameters/parameters-process_correlations.png">
-				<figcaption><i>Process correlation parameters</i></figcaption>
-			</figure>
+			<center>
+				<figure>
+					<img src="./images/parameters/parameters-process_correlations.png">
+					<figcaption><i>Process correlation parameters</i></figcaption>
+				</figure>
+			</center>
 		</td>
     </table>
 </center>
 The displacement analysis application was slightly changed as the markers selection controls do not appear in the previous version. Moreover, many unused functions from the menu were removed to conform to the needs of my work.
-<figure>
-    <img src="./images/app-displacement_analysis-02.png">
-    <figcaption><i>Displacement Analysis application</i></figcaption>
-</figure>
+<center>
+	<figure>
+	    <img src="./images/app-displacement_analysis-02.png">
+	    <figcaption><i>Displacement Analysis application</i></figcaption>
+	</figure>
+</center>
 
-|   Previous section   |             |    Next section     |
-| :------------------: | ----------- | :-----------------: |
-| [[Image processing]] | [[Outline]] | [[Depth profiling]] |
+|            Previous section            |                       |              Next section               |
+| :------------------------------------: | --------------------- | :-------------------------------------: |
+| [Image processing](Image%20processing) | [Outline](Outline.md) | [Depth profiling](Depth%20profiling.md) |

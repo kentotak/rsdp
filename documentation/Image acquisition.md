@@ -1,6 +1,6 @@
-The [FIB-DIC Good practice guide](https://eprintspublications.npl.co.uk/7807/) recommends to take multiple images during after every milling step and to average them, a process which is reflected in the [[Image processing]].
+The [FIB-DIC Good practice guide](https://eprintspublications.npl.co.uk/7807/) recommends to take multiple images during after every milling step and to average them, a process which is reflected in the [Image processing](Image%20processing).
 
-The diagram below represents the three potential scan directions used during image acquisition: 0°, 45° and 90°. Choosing a scan direction depends on the assumed residual stress state (see [[Depth profiling]] for more details on this point).
+The diagram below represents the three potential scan directions used during image acquisition: 0°, 45° and 90°. Choosing a scan direction depends on the assumed residual stress state (see [Depth profiling](Depth%20profiling.md) for more details on this point).
 <center>
     <figure>
         <img src='./images/pillar_directions_0.png' width=50%>
@@ -10,6 +10,6 @@ The diagram below represents the three potential scan directions used during ima
     </figure>
 </center>
 
-| Previous section |             |    Next section     |
-| :--------------: | ----------- | :-----------------: |
-| [[Introduction]] | [[Outline]] | [[Data management]] |
+|        Previous section         |                       |              Next section               |
+| :-----------------------------: | --------------------- | :-------------------------------------: |
+| [Introduction](Introduction.md) | [Outline](Outline.md) | [Data management](Data%20management.md) |

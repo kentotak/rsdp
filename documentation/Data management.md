@@ -23,7 +23,7 @@ The *Data selection* tab allows the user to choose the directory where their dat
 
 If a `Series directory` is selected, then the parent directory and its (grand-)parent directory are selected as well, which are named `Pillar directory` and `Sample directory` respectively. This is used for the advanced functions.
 
-The direction of the images can also be chosen, depending on if the user made SEM images of the pillar in the 0°, 45°, and/or 90° scan direction(s) (see [[Image acquisition]] for more details on those orientations).
+The direction of the images can also be chosen, depending on if the user made SEM images of the pillar in the 0°, 45°, and/or 90° scan direction(s) (see [Image acquisition](Image%20acquisition.md) for more details on those orientations).
 <center>
     <figure>
         <img src="./images/tabs/tab-data_selection.png" width=50%>
@@ -45,7 +45,7 @@ The application will try to find a `raw` folder with the images. If the folder d
 
 Selecting the data will also change the work folder accordingly.
 ## Work folder
-The 'work folder' shown below is the directory where all modified files are located, such as the analyzed images and the DIC files. It is generally located in `/sample/pillar/series/processed/θ`, with θ the scan direction (see [[Image processing]]).
+The 'work folder' shown below is the directory where all modified files are located, such as the analyzed images and the DIC files. It is generally located in `/sample/pillar/series/processed/θ`, with θ the scan direction (see [Image processing](Image%processing.md)).
 <center>
     <figure>
         <img src="./images/workfolder.png" width=50%>
@@ -55,6 +55,6 @@ The 'work folder' shown below is the directory where all modified files are loca
     </figure>
 </center>
 
-|   Previous section    |             |     Next section     |
-| :-------------------: | ----------- | :------------------: |
-| [[Image acquisition]] | [[Outline]] | [[Image processing]] |
+|              Previous section               |                       |               Next section                |
+| :-----------------------------------------: | --------------------- | :---------------------------------------: |
+| [Image acquisition](Image%20acquisition.md) | [Outline](Outline.md) | [Image processing](Image%20processing.md) |

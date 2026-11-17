@@ -32,6 +32,6 @@ Merging allows to plot multiple averaged profiles for different pillar diameters
 	</figure>
 </center>
 
-|  Previous section   |             |  Next section  |
-| :-----------------: | ----------- | :------------: |
-| [[Depth profiling]] | [[Outline]] | [[Comparison]] |
+|            Previous section             |                       |        Next section         |
+| :-------------------------------------: | --------------------- | :-------------------------: |
+| [Depth profiling](Depth%20profiling.md) | [Outline](Outline.md) | [Comparison](Comparison.md) |

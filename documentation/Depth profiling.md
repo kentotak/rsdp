@@ -25,6 +25,6 @@ The user can adjust the following depth profiling parameters:
 	</figure>
 </center>
 
-|       Previous section        |             | Next section  |
-| :---------------------------: | ----------- | :-----------: |
-| [[Digital Image Correlation]] | [[Outline]] | [[Averaging & Merging]] |
+|                       Previous section                        |                       |                   Next section                    |
+| :-----------------------------------------------------------: | --------------------- | :-----------------------------------------------: |
+| [Digital Image Correlation](Digital%20Image%20Correlation.md) | [Outline](Outline.md) | [Averaging & Merging](Averaging%20&%20Merging.md) |

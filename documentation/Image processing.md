@@ -1,4 +1,4 @@
-Image processing functions are disabled by default. They take a Fiji path and a series in input (see [[Data management#Data selection]]). The former can be selected in `File -> Fiji path`. This path is then automatically selected every time the user opens the application (this will be confirmed in the message box below the work folder field). The user is prompted to select a Fiji path if they have not selected one before.
+Image processing functions are disabled by default. They take a Fiji path and a series in input (see the Data selection section in [Data management](Data%20management.md)). The former can be selected in `File -> Fiji path`. This path is then automatically selected every time the user opens the application (this will be confirmed in the message box below the work folder field). The user is prompted to select a Fiji path if they have not selected one before.
 The image processing will be applied to all of the images of the specified format in the work folder.
 # Creating new images
 The user can either perform their analysis on the images they acquired or create new ones by rotation. The application will read the name of the `raw` folder and create a `processed` folder accordingly during the image processing step. The folder creation is detailed in the table below.
@@ -29,6 +29,6 @@ Generally, it is recommended to first align the images and then average them in 
 	</figure>
 </center>
 
-|  Previous section   |             |         Next section          |
-| :-----------------: | ----------- | :---------------------------: |
-| [[Data management]] | [[Outline]] | [[Digital Image Correlation]] |
+|            Previous section             |                       |                         Next section                          |
+| :-------------------------------------: | --------------------- | :-----------------------------------------------------------: |
+| [Data management](Data%20management.md) | [Outline](Outline.md) | [Digital Image Correlation](Digital%20Image%20Correlation.md) |

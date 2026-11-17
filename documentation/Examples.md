@@ -37,6 +37,6 @@ Only one set of images is needed in this case.
 # Case 2: Biaxial stress state with principal directions at 0° and 90°, only one set of images
 If the user only has one set of images in the 0° direction, then they can either create new images by rotating the set and performing the full analysis on the new rotated set, or by rotating the markers in the DIC application and performing the strain analysis on those markers.
 
-| Previous section |             |
-| :--------------: | ----------- |
-|  [[Comparison]]  | [[Outline]] |
+|      Previous section       |                       |     |
+| :-------------------------: | --------------------- | --- |
+| [Comparison](Comparison.md) | [Outline](Outline.md) |     |
