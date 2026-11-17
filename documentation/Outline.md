@@ -1,3 +1,4 @@
+# Outline
 0. [Introduction](Introduction.md)
 1. [Image acquisition](Image%20acquisition.md)
 2. [Data management](Data%20management.md)
