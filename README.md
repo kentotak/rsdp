@@ -16,13 +16,13 @@ Image processing prior to the DIC analysis is possible, which requires [Fiji](ht
 You may either
 1. Directly download this repository.
 2. Clone it using: git clone https://github.com/kentotak/rsdp.git.
-The installation file can be found at `/code/release/rsdp.mltbx`. Simply double-click the file or go to the *App* tab in `MATLAB` and click on *Install app*.
+The installation file can be found at `/code/release/rsdp.mltbx`. Simply double-click the file or go to the *App* tab in `MATLAB` and click on `Install app`.
 
 **Note:** For some reason, the application appears in the *App* tab when it is installed for the first time (in version R2026b), but disappears when `MATLAB` is closed and opened again.
 ## Usage
 To start the application, type `rsdp` in the command window.
 
-See the documentation for more instructions on how to use `rsdp`.
+See the documentation for more instructions on how to use `rsdp`. Please download it first as GitHub does not support figures very well.
 ## Contributing
 Pull requests are welcome, as long as I am working on this topic. For major changes, please open an issue first.
 ## License
