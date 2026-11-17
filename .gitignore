@@ -1,3 +1,5 @@
 *.asv
 code\+image_analysis\FijiPath.mat
 paper
+documentation\images\dp_parameters
+code\resources
