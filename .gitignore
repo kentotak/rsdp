@@ -1,5 +1,14 @@
+# Autosave files
 *.asv
-code\+image_analysis\FijiPath.mat
+
+# Fiji path (must be added by user)
+code/+image_analysis/FijiPath.mat
+
+# paper (obsolete)
 paper
-documentation\images\dp_parameters
-code\resources
+
+# obsolete images
+documentation/images/dp_parameters
+
+# Generated folder for some reason
+code/resources/*
