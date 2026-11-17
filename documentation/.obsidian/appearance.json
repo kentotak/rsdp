@@ -1,0 +1,6 @@
+{
+  "showRibbon": false,
+  "enabledCssSnippets": [
+    "remove_line_above_table"
+  ]
+}
