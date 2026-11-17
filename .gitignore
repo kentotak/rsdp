@@ -10,5 +10,5 @@ paper
 # obsolete images
 documentation/images/dp_parameters
 
-# Generated folder for some reason
-code/resources/*
+# xml files
+/code/resources
