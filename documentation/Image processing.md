@@ -22,7 +22,7 @@ In the *Image processing* tab, the user can choose different operations and filt
 Generally, it is recommended to first align the images and then average them in order to account for drift between multiple images at the same step. Else, artificial blur might be created on the images.
 <center>
 	<figure>
-		<img src="./images/image_processing/image_processing_parameters-01.png">
+		<img src="./images/parameters/image_processing_parameters-01.png">
 		<figcaption>
 			<i>Image processing parameters</i>
 		</figcaption>

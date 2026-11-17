@@ -20,23 +20,8 @@
               "icon": "lucide-file",
               "title": "Outline"
             }
-          },
-          {
-            "id": "6c97373e6ca8fafb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Comparison.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Comparison"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -114,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Comparison.md",
+                "file": "Outline.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -133,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Comparison.md",
+                "file": "Outline.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -176,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Comparison.md",
+                "file": "Outline.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -203,18 +188,21 @@
       "bases:Create new base": false
     }
   },
-  "active": "6c97373e6ca8fafb",
+  "active": "e4b9c62445af5926",
   "lastOpenFiles": [
-    "Averaging & Merging.md",
-    "Depth profiling.md",
-    "Digital Image Correlation.md",
-    "Image processing.md",
-    "Data management.md",
-    "Image acquisition.md",
     "Introduction.md",
-    "Outline.md",
-    "Comparison.md",
+    "Image processing.md",
+    "Image acquisition.md",
     "Examples.md",
+    "Digital Image Correlation.md",
+    "Depth profiling.md",
+    "Data management.md",
+    "Comparison.md",
+    "Averaging & Merging.md",
+    "images/parameters/image_processing_parameters-01.png",
+    "images/parameters/file_list_parameters-02.png",
+    "Outline.md",
+    "images/pillar_directions_0-02.png",
     "Image.md",
     "images/tabs/tab-averaging-02.png",
     "images/tabs/tab-averaging-01.png",
@@ -223,9 +211,6 @@
     "images/parameters/Screenshot 2026-11-17 145217.png",
     "images/parameters/parameters-merging.png",
     "images/parameters/parameters-averaging-01.png",
-    "images/parameters/Screenshot 2026-11-17 145222.png",
-    "images/parameters/parameters-comparison-02.png",
-    "images/parameters/parameters-comparison-01.png",
     "file:C:/Users/u0166823/OneDrive - KU Leuven/PhD_OneDrive/exp/FIB-DIC/code/all_apps-kento/rsdp/README.md",
     "file:C:/Users/u0166823/OneDrive - KU Leuven/PhD_OneDrive/exp/FIB-DIC/code/all_apps-kento/rsdp/documentation/Introduction.md",
     "file:C:/Users/u0166823/OneDrive - KU Leuven/PhD_OneDrive/exp/FIB-DIC/code/all_apps-kento/rsdp/documentation/Outline.md",

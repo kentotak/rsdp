@@ -12,7 +12,7 @@ Those steps were kept here, with less prompts for the user. For example, the fil
 		<td>
 			<center>
 				<figure>
-					<img src="./images/file_list/file_list_parameters-02.png">
+					<img src="./images/parameters/file_list_parameters-02.png">
 					<figcaption><i>File list parameters</i></figcaption>
 				</figure>
 			</center>
