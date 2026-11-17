@@ -4,6 +4,6 @@
 3. [[Image processing]]
 4. [[Digital Image Correlation]]
 5. [[Depth profiling]]
-6. [[Averaging]]
+6. [[Averaging & Merging]]
 7. [[Comparison]]
 8. [[Examples]]

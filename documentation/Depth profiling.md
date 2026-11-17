@@ -24,3 +24,7 @@ The user can adjust the following depth profiling parameters:
 		<figcaption><i>Depth profiling parameters window</i></figcaption>
 	</figure>
 </center>
+
+|       Previous section        |             | Next section  |
+| :---------------------------: | ----------- | :-----------: |
+| [[Digital Image Correlation]] | [[Outline]] | [[Averaging & Merging]] |

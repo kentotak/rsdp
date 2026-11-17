@@ -15,3 +15,7 @@ A typical FIB-DIC analysis goes as follows:
 5. Advanced functions (optional)
     1. Averaging of multiple residual stress profiles
     2. Comparison between curves
+
+|             |     Next section      |
+| ----------- | :-------------------: |
+| [[Outline]] | [[Image acquisition]] |

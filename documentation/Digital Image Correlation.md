@@ -9,24 +9,26 @@ Those steps were kept here, with less prompts for the user. For example, the fil
         <figcaption><i>DIC tab</i></figcaption>
     </figure>
     <table>
-        <tr>
-            <td>
-                <figure>
-                    <img src="./images/file_list/file_list_parameters-02.png">
-                    <figcaption><i>File list parameters</i></figcaption>
-                </figure>
-            </td>
-            <td>
-                <figure>
-                    <img src="./images/parameters/parameters-process_correlations.png">
-                    <figcaption><i>Process correlation parameters</i></figcaption>
-                </figure>
-            </td>
-        </tr>
+		<td>
+			<figure>
+				<img src="./images/file_list/file_list_parameters-02.png">
+				<figcaption><i>File list parameters</i></figcaption>
+			</figure>
+		</td>
+		<td>
+			<figure>
+				<img src="./images/parameters/parameters-process_correlations.png">
+				<figcaption><i>Process correlation parameters</i></figcaption>
+			</figure>
+		</td>
     </table>
 </center>
-The displacement analysis application was slightly changed as it was noted that the markers selection controls did not appear before.
+The displacement analysis application was slightly changed as the markers selection controls do not appear in the previous version. Moreover, many unused functions from the menu were removed to conform to the needs of my work.
 <figure>
     <img src="./images/app-displacement_analysis-02.png">
     <figcaption><i>Displacement Analysis application</i></figcaption>
 </figure>
+
+|   Previous section   |             |    Next section     |
+| :------------------: | ----------- | :-----------------: |
+| [[Image processing]] | [[Outline]] | [[Depth profiling]] |

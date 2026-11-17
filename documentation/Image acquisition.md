@@ -9,3 +9,7 @@ The diagram below represents the three potential scan directions used during ima
         </figcaption>
     </figure>
 </center>
+
+| Previous section |             |    Next section     |
+| :--------------: | ----------- | :-----------------: |
+| [[Introduction]] | [[Outline]] | [[Data management]] |
