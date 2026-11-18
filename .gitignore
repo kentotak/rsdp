@@ -2,11 +2,11 @@
 *.asv
 
 # Fiji path (must be added by user)
-code/+image_analysis/FijiPath.mat
+/code/+image_analysis/FijiPath.mat
 
 # paper (obsolete)
-paper
+/paper/*/**
 
 # obsolete images
-documentation/images/dp_parameters
-documentation/images/file_list
+/documentation/images/dp_parameters/*/**
+/documentation/images/file_list/*/**
