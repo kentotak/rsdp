@@ -13,7 +13,7 @@
 
 # Packaged app and toolbox files
 *.mlappinstall
-*.mltbx
+# *.mltbx
 
 # Deployable archives
 *.ctf
